@@ -21,25 +21,35 @@ const Home = () => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length)
     }, 4000)
-
     return () => clearInterval(interval)
   }, [])
+
   return (
-    <div className="relative h-[120vh] w-full overflow-visible">
-      {images.map((img, i) => (
-        <div
-          key={i}
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${i === index ? 'opacity-100' : 'opacity-0'
+    <div className="relative w-full">
+
+      {/* ── Hero section with background slideshow ── */}
+      <div className="relative min-h-screen w-full overflow-hidden">
+        {/* Background images */}
+        {images.map((img, i) => (
+          <div
+            key={i}
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+              i === index ? 'opacity-100' : 'opacity-0'
             }`}
-          style={{ backgroundImage: `url(${img})` }}
-        />
-      ))}
+            style={{ backgroundImage: `url(${img})` }}
+          />
+        ))}
 
-      <div className="absolute inset-0 bg-black/75"></div>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/75" />
 
-      <div className="relative z-10">
-        <Hero />
+        {/* Hero content */}
+        <div className="relative z-10 h-full">
+          <Hero />
+        </div>
       </div>
+
+      {/* ── All sections below hero ── */}
       <FlaotingDiv />
       <WhyUs />
       <FounderMsg />
@@ -47,6 +57,7 @@ const Home = () => {
       <GalleryScroll />
       <GovtImages />
       <Footer />
+
     </div>
   )
 }
