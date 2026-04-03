@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Prototype 2 - Creative Wide Stacked</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #fff; }
+        h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; }
+        .accent-text { color: #EA681A; }
+        .bg-gradient-navy { background: linear-gradient(135deg, #020617 0%, #0a192f 100%); }
+        .map-frame { border-radius: 30px; overflow: hidden; border: 10px solid #f8fafc; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        .service-card { transition: all 0.4s ease; border: 1px solid #e2e8f0; }
+        .service-card:hover { border-color: #EA681A; transform: translateY(-5px); box-shadow: 0 20px 40px rgba(234, 104, 26, 0.1); }
+        .footer-link { position: relative; display: inline-block; }
+        .footer-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: 0; left: 0; background-color: #EA681A; transition: 0.3s; }
+        .footer-link:hover::after { width: 100%; }
+        .social-btn { border: 1px solid #cbd5e1; border-radius: 12px; height: 48px; width: 48px; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .social-btn:hover { background: #020617; border-color: #020617; color: white; transform: rotate(10deg); }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div class="py-20 text-center">
+        <h2 class="text-3xl font-bold text-gray-800">Footer Prototype 2: Creative Wide Stacked</h2>
+        <p class="text-gray-500 mt-2">Highly visual, great for large maps.</p>
+    </div>
+
+    <!-- MAIN FOOTER -->
+    <footer class="bg-white border-t border-gray-100">
+        
+        <!-- Top Section: Interactive Map -->
+        <div class="max-w-7xl mx-auto px-6 py-20">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Info Left -->
+                <div class="lg:w-1/3 space-y-8">
+                    <div class="space-y-4">
+                        <h2 class="text-4xl font-extrabold text-slate-900 leading-tight">Visit Our<br/><span class="accent-text italic">Foundation Office</span></h2>
+                        <p class="text-slate-500 leading-relaxed text-lg text-justify">
+                            We are located in the heart of Bhopal, working tirelessly with local communities. Stop by to see our work in action or meet our team.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-5">
+                            <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-500 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold uppercase tracking-wider text-slate-400">Our Location</h4>
+                                <p class="text-lg font-bold text-slate-800">Plot No. 12, Sector 3, Bhopal, MP</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold uppercase tracking-wider text-slate-400">Email Address</h4>
+                                <p class="text-lg font-bold text-slate-800 break-all">info@ujjawalbhoomifoundation.in</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Right -->
+                <div class="lg:w-2/3 w-full">
+                    <div class="map-frame h-[450px] w-full">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14663.15573489816!2d77.410656!3d23.259933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c42edf4287e0b%3A0xc3b8a1c97a7a7a7a!2sBhopal%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1712123456789!5m2!1sen!2sin" 
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Links Grid Section -->
+        <div class="bg-[#020617] text-white pt-20 pb-12">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                    
+                    <!-- Branding Col -->
+                    <div class="space-y-6 lg:max-w-[280px]">
+                        <img src="https://via.placeholder.com/180x60/ffffff/000000?text=UBF+LOGO" alt="logo" class="h-12 w-auto mb-4 border border-white/10 rounded-lg">
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            A non-profit committed to driving innovation for environmental sustainability and socio-economic empowerment.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#" class="social-btn text-gray-400 hover:text-white">F</a>
+                            <a href="#" class="social-btn text-gray-400 hover:text-white">I</a>
+                            <a href="#" class="social-btn text-gray-400 hover:text-white">L</a>
+                            <a href="#" class="social-btn text-gray-400 hover:text-white">X</a>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Col -->
+                    <div>
+                        <h4 class="text-lg font-bold mb-8">Foundation</h4>
+                        <ul class="space-y-4">
+                            <li><a href="#" class="text-gray-400 hover:text-white footer-link text-sm uppercase">About Us</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white footer-link text-sm uppercase">Impact Reports</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white footer-link text-sm uppercase">Our Partners</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white footer-link text-sm uppercase">Transparency</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Quick Help Col -->
+                    <div>
+                        <h4 class="text-lg font-bold mb-8">Get Involved</h4>
+                        <ul class="space-y-4">
+                            <li><a href="#" class="text-gray-400 hover:text-white footer-link text-sm uppercase">Donate Now</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white footer-link text-sm uppercase">Be a Volunteer</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white footer-link text-sm uppercase">Corporate CSR</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white footer-link text-sm uppercase">Internships</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Newsletter/CTA -->
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="text-lg font-bold mb-4 uppercase accent-text italic">Stay Informed</h4>
+                            <p class="text-xs text-gray-500 mb-6 uppercase tracking-[1px]">Subscribe to our monthly foundation newsletter.</p>
+                            <div class="relative max-w-[280px]">
+                                <input type="email" placeholder="Your email here..." class="w-full h-12 bg-white/5 border border-white/10 rounded-xl px-4 text-sm focus:outline-none focus:border-orange-500">
+                                <button class="absolute top-1 right-1 h-10 px-4 bg-orange-600 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-orange-700 transition-all">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-16 pt-10 border-t border-white/10 text-center text-gray-500 text-xs font-medium uppercase tracking-[2px]">
+                    <p>&copy; 2026 Ujjawal Bhoomi Foundation &bull; Registered NGO Bhopal</p>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Prototype 4 (Large Team/Partners Scaling)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ====== RESET & BASE ====== */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body { font-family:'Montserrat',sans-serif; color:#1f2937; background:#fff; line-height:1.6; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; } ul { list-style:none; } img { max-width:100%; display:block; }
+    button { font-family:inherit; cursor:pointer; border:none; outline:none; }
+
+    :root {
+      --blue: #113E7C; --orange: #EA681A; --gray-50: #f9fafb; --gray-200: #e5e7eb;
+      --gray-500: #6b7280; --gray-900: #111827; --white: #ffffff;
+      --container: 1200px; --radius: 16px; --transition: 0.3s ease;
+    }
+    .container { max-width:var(--container); margin:0 auto; padding:0 24px; }
+    .sr { opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease; }
+    .sr.visible { opacity:1; transform:translateY(0); }
+
+    /* ====== SECTION HEADER ====== */
+    .section-label { display:inline-block; font-size:.85rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--orange); margin-bottom:12px; position: relative; }
+    .section-label::after { content: ''; display: block; width: 40px; height: 2px; background: var(--orange); margin: 6px auto 0; }
+    .section-title { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; color:var(--blue); margin-bottom:16px; line-height:1.2; text-align: center; }
+    .section-subtitle { font-size:1.05rem; color:var(--gray-500); max-width:650px; margin:0 auto 60px; text-align: center; }
+
+    /* ============================================================
+       1. PARTNERS — Horizontal Infinite-style Scroll
+       ============================================================ */
+    .partners { padding:80px 0; background:#fff; }
+    .partner-scroll-wrapper {
+      position: relative;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      overflow: hidden;
+      padding: 20px 0;
+    }
+    /* Fade edges */
+    .partner-scroll-wrapper::before, .partner-scroll-wrapper::after {
+      content:''; position:absolute; top:0; bottom:0; width:80px; z-index:2; pointer-events:none;
+    }
+    .partner-scroll-wrapper::before { left:0; background:linear-gradient(to right, #fff, transparent); }
+    .partner-scroll-wrapper::after { right:0; background:linear-gradient(to left, #fff, transparent); }
+    
+    .partner-track {
+      display: flex;
+      gap: 24px;
+      padding: 0 24px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none; /* Hide scrollbar Firefox */
+    }
+    .partner-track::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
+    
+    .partner-card {
+      flex: 0 0 280px; /* Fixed width prevents shrinking */
+      scroll-snap-align: start;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      transition: all var(--transition);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    .partner-card:hover { border-color: var(--orange); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.06); }
+    .p-logo { width: 80px; height: 80px; margin: 0 auto 16px; padding: 4px; border-radius: 12px; border: 1px solid var(--gray-200); }
+    .p-logo img { width: 100%; height: 100%; object-fit: contain; }
+    .partner-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
+    .partner-card span { font-size: 0.8rem; font-weight: 600; color: var(--orange); text-transform: uppercase; }
+
+    /* Slider Controls */
+    .slider-controls { display: flex; justify-content: center; gap: 16px; margin-top: 32px; }
+    .ctrl-btn { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--blue); background: #fff; color: var(--blue); font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    .ctrl-btn:hover { background: var(--blue); color: #fff; }
+
+    /* ============================================================
+       2. TEAM — Filterable Tab Grid + Pagination setup
+       ============================================================ */
+    .team { padding:80px 0; background:var(--gray-50); }
+    
+    /* Tabs */
+    .team-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .tab-btn {
+      padding: 10px 24px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      transition: all 0.3s;
+    }
+    .tab-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .tab-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 4px 15px rgba(17,62,124,0.2); }
+
+    /* Grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .team-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 32px 20px;
+      border: 1px solid var(--gray-200);
+      text-align: center;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+    .team-card:hover { transform: translateY(-6px); box-shadow: 0 15px 30px rgba(0,0,0,0.06); border-color: var(--orange); }
+    .t-avatar { width: 100px; height: 100px; border-radius: 14px; background: var(--gray-50); margin: 0 auto 20px; overflow: hidden; }
+    .t-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .team-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+    .team-card .role { font-size: 0.8rem; font-weight: 600; color: var(--orange); text-transform: uppercase; margin-bottom: 12px; display: block; }
+    
+    .team-card.hidden { display: none; }
+
+    /* Load More / Pagination replacement */
+    .pagination-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      border-top: 1px solid var(--gray-200);
+      padding-top: 32px;
+    }
+    .page-txt { font-size: 0.9rem; font-weight: 600; color: var(--gray-500); }
+    .load-more-btn {
+      padding: 12px 32px;
+      background: transparent;
+      border: 2px solid var(--blue);
+      color: var(--blue);
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+    .load-more-btn:hover { background: var(--blue); color: #fff; }
+
+  </style>
+</head>
+<body>
+
+  <!-- SIMULATING LARGE PARTNERS SECTION -->
+  <section class="partners">
+    <div class="container">
+      <div style="text-align:center;">
+        <span class="section-label">Ecosystem</span>
+        <h2 class="section-title">Trusted Partners (12+)</h2>
+        <p class="section-subtitle">A horizontal scrolling carousel handles 10 to 50+ partners beautifully without extending the vertical length of the page.</p>
+      </div>
+
+      <div class="partner-scroll-wrapper">
+        <div class="partner-track" id="p-track">
+          <!-- Generating 12 dummy partners rapidly -->
+          <div class="partner-card"><div class="p-logo"><img src="https://i.ibb.co/n3HN52g/sangmitra.jpg"></div><h3>Sangmitra Trust</h3><span>Community</span></div>
+          <div class="partner-card"><div class="p-logo"><img src="https://i.ibb.co/gT3Pj7k/parivartak-support.jpg"></div><h3>Parivartak Support</h3><span>Training</span></div>
+          <div class="partner-card"><div class="p-logo"><img src="https://i.ibb.co/DwqCm3K/Screenshot-2024-10-16-132912.png"></div><h3>Deep Photography</h3><span>Media</span></div>
+          <div class="partner-card"><div class="p-logo"><img src="https://i.postimg.cc/9FGZ1ddN/IMG-20240907-WA0001.jpg"></div><h3>Dakshi Foundation</h3><span>Strategic</span></div>
+          
+          <div class="partner-card"><div class="p-logo"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Save Earth NGO</h3><span>Environment</span></div>
+          <div class="partner-card"><div class="p-logo"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Global Health</h3><span>Medical</span></div>
+          <div class="partner-card"><div class="p-logo"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>EdTech Rural</h3><span>Education</span></div>
+          <div class="partner-card"><div class="p-logo"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Kisan Support</h3><span>Agriculture</span></div>
+          
+          <div class="partner-card"><div class="p-logo"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Women Power</h3><span>Empowerment</span></div>
+          <div class="partner-card"><div class="p-logo"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Tech For Good</h3><span>Digital</span></div>
+          <div class="partner-card"><div class="p-logo"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Youth Network</h3><span>Youth</span></div>
+          <div class="partner-card"><div class="p-logo"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Rural Infra</h3><span>Infrastructure</span></div>
+        </div>
+      </div>
+      
+      <div class="slider-controls">
+        <button class="ctrl-btn" onclick="document.getElementById('p-track').scrollBy({left: -300, behavior: 'smooth'})">❮</button>
+        <button class="ctrl-btn" onclick="document.getElementById('p-track').scrollBy({left: 300, behavior: 'smooth'})">❯</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SIMULATING LARGE TEAM SECTION -->
+  <section class="team">
+    <div class="container">
+      <div style="text-align:center;">
+        <span class="section-label">Our Team</span>
+        <h2 class="section-title">The People Behind the Impact (20+)</h2>
+        <p class="section-subtitle">Using a Tabbed Filter system prevents a massive block of 20+ images loading at once, allowing users to browse by department or role.</p>
+      </div>
+
+      <!-- TABS -->
+      <div class="team-tabs">
+        <button class="tab-btn active" onclick="filterTeam('all', this)">View All</button>
+        <button class="tab-btn" onclick="filterTeam('core', this)">Core Team</button>
+        <button class="tab-btn" onclick="filterTeam('field', this)">Field Operations</button>
+        <button class="tab-btn" onclick="filterTeam('volunteers', this)">Advisors & Volunteers</button>
+      </div>
+
+      <!-- GRID -->
+      <div class="team-grid" id="t-grid">
+        <!-- Core -->
+        <div class="team-card core"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Priya Sharma</h3><span class="role">Program Coordinator</span></div>
+        <div class="team-card core"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Rajesh Verma</h3><span class="role">Operations Head</span></div>
+        <div class="team-card core"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Sunita Patel</h3><span class="role">Education Head</span></div>
+        <div class="team-card core"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Amit Kumar</h3><span class="role">Healthcare Head</span></div>
+        
+        <!-- Field -->
+        <div class="team-card field"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Neha Singh</h3><span class="role">District Coordinator</span></div>
+        <div class="team-card field"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Vikas Rao</h3><span class="role">On-Ground Admin</span></div>
+        <div class="team-card field"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Anita Desai</h3><span class="role">Medical Assistant</span></div>
+        <div class="team-card field"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Rohan Gupta</h3><span class="role">Logistics</span></div>
+        <div class="team-card field"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Nikhil Jain</h3><span class="role">Teacher Lead</span></div>
+        <div class="team-card field"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Pooja Reddy</h3><span class="role">Survey Outreach</span></div>
+
+        <!-- Volunteers/Advisors -->
+        <div class="team-card volunteers"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Dr. Kavita</h3><span class="role">Medical Advisor</span></div>
+        <div class="team-card volunteers"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Prof. Dinesh</h3><span class="role">Edu Consultant</span></div>
+        <div class="team-card volunteers"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Smriti Sen</h3><span class="role">Lead Volunteer</span></div>
+        <div class="team-card volunteers"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"></div><h3>Kabir Das</h3><span class="role">Design Volunteer</span></div>
+        <div class="team-card volunteers"><div class="t-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"></div><h3>Anjali Joshi</h3><span class="role">Social Media</span></div>
+      </div>
+
+      <div class="pagination-bar">
+        <span class="page-txt">Showing top 15 members</span>
+        <button class="load-more-btn">Load 10 More</button>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    function filterTeam(category, btn) {
+      // Update buttons
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Update cards
+      const cards = document.querySelectorAll('.team-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.classList.contains(category)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

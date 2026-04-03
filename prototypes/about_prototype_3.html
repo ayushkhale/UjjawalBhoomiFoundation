@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Prototype 3 (Refined Grid & Split Layouts)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ====== RESET & BASE ====== */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body {
+      font-family:'Montserrat',sans-serif;
+      color:#1f2937;
+      background:#fff;
+      line-height:1.6;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    a { text-decoration:none; color:inherit; }
+    ul { list-style:none; }
+    img { max-width:100%; display:block; }
+    button { font-family:inherit; cursor:pointer; border:none; outline:none; }
+
+    /* ====== DESIGN TOKENS ====== */
+    :root {
+      --blue:   #113E7C;
+      --blue-dark: #0a1628;
+      --blue-950: #0c2340;
+      --orange: #EA681A;
+      --orange-light: #fdcaa0;
+      --green:  #23974F;
+      --gray-50: #f9fafb;
+      --gray-100:#f3f4f6;
+      --gray-200:#e5e7eb;
+      --gray-400:#9ca3af;
+      --gray-500:#6b7280;
+      --gray-700:#374151;
+      --gray-800:#1f2937;
+      --gray-900:#111827;
+      --white:  #ffffff;
+      --container: 1200px;
+      --radius: 16px; /* Slightly sharper corners than proto 1 */
+      --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .container { max-width:var(--container); margin:0 auto; padding:0 24px; }
+
+    /* ====== SCROLL REVEAL ====== */
+    .sr { opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease; }
+    .sr.visible { opacity:1; transform:translateY(0); }
+    .sr.d1 { transition-delay:.1s; } .sr.d2 { transition-delay:.2s; } .sr.d3 { transition-delay:.3s; }
+
+    /* ====== SECTION HEADER ====== */
+    .section-label {
+      display:inline-block;
+      font-size:.85rem; font-weight:700;
+      text-transform:uppercase; letter-spacing:.12em;
+      color:var(--orange); margin-bottom:12px;
+      position: relative;
+    }
+    .section-label::after {
+      content: ''; display: block; width: 40%; height: 2px; background: var(--orange); margin: 6px auto 0;
+    }
+    .section-title {
+      font-size:clamp(1.8rem,4vw,2.8rem);
+      font-weight:800; color:var(--blue);
+      margin-bottom:16px; line-height:1.2;
+    }
+    .section-subtitle {
+      font-size:1.05rem; color:var(--gray-500);
+      max-width:650px; margin:0 auto;
+    }
+    .section-header { text-align:center; margin-bottom:60px; }
+    
+    .section-header.left-aligned { text-align: left; }
+    .section-header.left-aligned .section-label::after { margin: 6px 0 0 0; width: 30px; }
+    .section-header.left-aligned .section-subtitle { margin: 0; }
+
+    /* ============================================================
+       1. HERO (Angled Edge)
+       ============================================================ */
+    .about-hero {
+      padding:160px 0 140px;
+      background:linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 60%, var(--blue-950) 100%);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 50px)); /* Angled bottom */
+    }
+    .about-hero-bg-shapes {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.6;
+    }
+    .about-hero-bg-shapes circle { fill: var(--orange); opacity: 0.1; }
+    
+    .about-hero .badge {
+      display:inline-block; padding:8px 24px;
+      background:rgba(255,255,255,.1); border-radius:50px; color:var(--white);
+      font-size:.85rem; font-weight:700;
+      letter-spacing:.08em; text-transform:uppercase;
+      margin-bottom:24px; backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .about-hero h1 {
+      font-size:clamp(2.4rem,5vw,4.2rem);
+      font-weight:800; color:#fff;
+      margin-bottom:24px; line-height:1.1;
+    }
+    .about-hero h1 span {
+      position: relative;
+    }
+    .about-hero h1 span::after {
+      content:''; position:absolute; bottom:-4px; left:0; width:100%; height:8px;
+      background:var(--orange); z-index:-1; opacity:0.8; border-radius: 4px;
+    }
+    .about-hero p {
+      font-size:clamp(1.05rem,2vw,1.2rem);
+      color:rgba(255,255,255,.8);
+      max-width:700px; margin:0 auto;
+      line-height:1.7;
+    }
+
+    /* ============================================================
+       2. MISSION / VISION / VALUES — Left-aligned horizontal-ish cards
+       ============================================================ */
+    .pillars {
+      padding:80px 0 100px;
+      background:#fff;
+    }
+    .pillars-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:32px; position:relative; z-index:1;
+    }
+    .pillar-card {
+      background:var(--gray-50);
+      border-radius:var(--radius); padding:40px 32px;
+      border:1px solid var(--gray-200);
+      display:flex; flex-direction:column; align-items:flex-start;
+      text-align:left; min-height:300px;
+      transition:all .3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .pillar-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gray-200); transition: all 0.3s;
+    }
+    .pillar-card:hover {
+      transform:translateY(-5px);
+      box-shadow:0 15px 35px rgba(0,0,0,.05);
+      border-color:var(--gray-200);
+      background: #fff;
+    }
+    .pillar-card:hover::before { background: var(--orange); }
+    
+    .pillar-card .pillar-icon {
+      width:60px; height:60px;
+      background:var(--white); color:var(--blue);
+      border-radius:12px; display:flex;
+      align-items:center; justify-content:center;
+      font-size:1.8rem; margin-bottom:24px;
+      box-shadow:0 4px 10px rgba(0,0,0,.05);
+      border: 1px solid var(--gray-200);
+    }
+    .pillar-card h3 { font-size:1.35rem; font-weight:800; color:var(--gray-900); margin-bottom:12px; }
+    .pillar-card p { color:var(--gray-600); font-size:.95rem; line-height:1.7; }
+
+    /* ============================================================
+       3. LEADERSHIP — Split Layout Card
+       ============================================================ */
+    .leadership {
+      padding:100px 0;
+      background:var(--gray-50);
+    }
+    .leader-split-card {
+      background:#fff;
+      border-radius:var(--radius);
+      border:1px solid var(--gray-200);
+      box-shadow:0 10px 40px rgba(0,0,0,.03);
+      display:grid; grid-template-columns: 350px 1fr;
+      overflow:hidden;
+      cursor:pointer; transition:all var(--transition);
+      max-width: 1000px; margin: 0 auto;
+    }
+    .leader-split-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,.06); }
+    
+    .leader-img-col {
+      position: relative;
+    }
+    .leader-img-col img {
+      width:100%; height:100%; object-fit:cover;
+      object-position:center top; transition:transform .5s;
+    }
+    .leader-split-card:hover .leader-img-col img { transform:scale(1.05); }
+    
+    .leader-info-col {
+      padding: 48px;
+      display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+    }
+    .leader-info-col h3 { font-size:2rem; font-weight:800; color:var(--blue); margin-bottom:8px; }
+    .leader-info-col .role { font-size:.9rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1px; margin-bottom: 24px; }
+    .leader-info-col p { color: var(--gray-600); line-height: 1.8; margin-bottom: 32px; font-size: 1.05rem; }
+    
+    .leader-info-col .read-btn {
+      padding:12px 32px;
+      background:transparent; color:var(--blue);
+      border: 2px solid var(--blue);
+      border-radius:50px; font-weight:700; font-size:.95rem;
+      transition:all .3s;
+    }
+    .leader-split-card:hover .read-btn {
+      background:var(--blue); color:#fff;
+    }
+
+    /* ============================================================
+       4. PARTNERS & TEAM — Simplified Cards
+       ============================================================ */
+    .partners, .team { padding:100px 0; background:#fff; }
+    .team { background: var(--gray-50); }
+    
+    .card-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+      gap:32px;
+    }
+    .profile-card {
+      background:#fff; border-radius:var(--radius);
+      padding:36px 24px; cursor:pointer;
+      border:1px solid var(--gray-200); position:relative; overflow:hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      display:flex; flex-direction:column; align-items:center;
+      text-align:center; transition:all var(--transition);
+    }
+    .profile-card:hover { transform:translateY(-8px); box-shadow:0 20px 40px rgba(0,0,0,.08); border-color:var(--orange); }
+
+    .card-avatar {
+      width:110px; height:110px; border-radius:16px; /* Rounded squares instead of circles */
+      background: var(--gray-50); outline: 4px solid #fff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      margin-bottom:24px; overflow:hidden;
+      transition:all .4s;
+    }
+    .profile-card:hover .card-avatar { transform:scale(1.08) rotate(-2deg); }
+    .card-avatar.contain img { object-fit:contain; padding:12px; }
+    .card-avatar img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+    
+    .profile-card h3 { font-size:1.2rem; font-weight:700; color:var(--gray-900); margin-bottom:6px; }
+    .profile-card .meta { font-size:.85rem; color:var(--orange); font-weight:600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .profile-card .card-btn {
+      margin-top:24px; padding:8px 24px;
+      color:var(--gray-500); border-bottom: 2px solid transparent; border-radius: 0;
+      font-weight:600; font-size:.85rem; transition:.2s;
+    }
+    .profile-card:hover .card-btn { color:var(--blue); border-color: var(--blue); }
+
+    .show-more-wrap { display:flex; justify-content:center; margin-top:48px; }
+    .show-more-btn {
+      padding:14px 40px; background:#fff;
+      color:var(--blue); border:2px solid var(--blue);
+      border-radius:50px; font-weight:700; font-size:.95rem;
+      display:inline-flex; align-items:center; gap:8px;
+      transition:all .3s;
+    }
+    .show-more-btn:hover {
+      background:var(--blue); color:#fff;
+      transform:translateY(-2px); box-shadow:0 10px 20px rgba(17,62,124,.15);
+    }
+
+    /* ============================================================
+       6. JOURNEY — Sticky with modern cards
+       ============================================================ */
+    .journey { padding:100px 0; background:#fff; }
+    .journey-grid {
+      display:grid; grid-template-columns:1fr 1.5fr;
+      gap:64px; align-items:start;
+    }
+    .journey-sticky { position:sticky; top:100px; }
+    
+    .journey-stats {
+      display:flex; flex-direction: column; gap:24px;
+      padding-top:32px; border-top:1px solid var(--gray-200);
+      margin-top: 32px;
+    }
+    .journey-stat { display: flex; align-items: baseline; gap: 12px;}
+    .journey-stat strong { font-size:2.5rem; font-weight:900; color:var(--orange); line-height: 1; }
+    .journey-stat span { font-size:.95rem; color:var(--gray-600); font-weight:600; text-transform: uppercase; letter-spacing: 1px;}
+
+    .journey-cards { display:flex; flex-direction:column; gap:32px; padding-left: 24px; border-left: 2px dashed var(--gray-200); }
+    .journey-card {
+      background:var(--gray-50); border:1px solid var(--gray-200);
+      border-radius:var(--radius); padding:40px;
+      position:relative; transition:all .3s;
+    }
+    .journey-card::before {
+      content:''; position:absolute; left:-33px; top:45px;
+      width:16px; height:16px; border-radius: 50%; background:var(--white); border: 4px solid var(--orange); transition:all .3s; z-index: 2;
+    }
+    .journey-card:hover { transform:translateY(-4px); box-shadow:0 15px 30px rgba(0,0,0,.05); background: #fff; border-color: var(--blue); }
+    .journey-card:hover::before { background: var(--blue); border-color: var(--blue); transform: scale(1.2); }
+    
+    .journey-card-header { display:flex; align-items:center; gap: 16px; margin-bottom:16px; }
+    .journey-year { font-weight:900; color:var(--blue); font-size:2.2rem; line-height:1; }
+    .journey-pill {
+      background:rgba(234,104,26,.1); color:var(--orange);
+      font-size:.75rem; font-weight:700;
+      padding:6px 14px; border-radius:50px;
+      text-transform:uppercase; letter-spacing:.08em;
+    }
+    
+    .journey-card h3 { font-size:1.35rem; font-weight:800; color:var(--gray-900); margin-bottom:10px; }
+    .journey-card > p { font-size:.95rem; color:var(--gray-500); line-height:1.7; margin-bottom:16px; }
+    .journey-features li {
+      position:relative; padding-left:1.5rem;
+      margin-bottom:8px; font-size:.9rem;
+      color:var(--gray-700); font-weight:500;
+    }
+    .journey-features li::before { content:'✓'; position:absolute; left:0; color:var(--green); font-weight:800; }
+
+    /* ============================================================
+       7. WHERE WE WORK — Clean boxed
+       ============================================================ */
+    .locations { padding:100px 0; background:var(--gray-50); }
+    .loc-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:32px;
+    }
+    .loc-card {
+      padding:40px 32px; background:#fff;
+      border:1px solid var(--gray-200); box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      border-radius:var(--radius); transition:all .3s;
+      text-align: center;
+    }
+    .loc-card:hover { border-color:var(--blue); transform:translateY(-6px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+    .loc-icon { width: 48px; height: 48px; background: rgba(35,151,79,0.1); color: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .loc-card h4 { color:var(--blue); font-size:1.1rem; font-weight:800; margin-bottom:8px; }
+    .loc-card p { color:var(--gray-500); font-size:.95rem; line-height:1.6; }
+
+    /* ============================================================
+       8. CTA BANNER
+       ============================================================ */
+    .cta { padding:100px 0; background:#fff; }
+    .cta-box {
+      text-align:center; padding:80px 40px;
+      background:linear-gradient(135deg, var(--orange) 0%, #fa7a2f 100%);
+      color: #fff;
+      border-radius:var(--radius); position:relative; overflow:hidden;
+      box-shadow:0 15px 40px rgba(234,104,26,.2);
+    }
+    .cta-box h2 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; margin-bottom:16px; }
+    .cta-box p { color:rgba(255,255,255,0.9); max-width:550px; margin:0 auto 40px; font-size:1.1rem; line-height: 1.7; }
+    .cta-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    
+    .btn-white {
+      padding:16px 36px; background:#fff;
+      color:var(--orange); border-radius:50px; font-weight:800;
+      font-size:.95rem; transition:all .3s;
+    }
+    .btn-white:hover { transform:translateY(-2px); box-shadow:0 10px 20px rgba(0,0,0,.1); }
+    .btn-outline {
+      padding:16px 36px; background:transparent; border: 2px solid #fff;
+      color:#fff; border-radius:50px; font-weight:800;
+      font-size:.95rem; transition:all .3s;
+    }
+    .btn-outline:hover { background:#fff; color: var(--orange); transform:translateY(-2px); }
+
+    /* ============================================================
+       9. FOOTER (simplified)
+       ============================================================ */
+    .footer {
+      background:var(--blue-dark);
+      padding:32px 0; text-align:center;
+    }
+    .footer p { font-size:.85rem; color:rgba(255,255,255,0.5); }
+
+    /* ============================================================
+       10. MODAL
+       ============================================================ */
+    .modal-overlay {
+      position:fixed; inset:0; z-index:1000;
+      background:rgba(10,22,40,.8);
+      backdrop-filter:blur(6px);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none; transition:opacity .3s;
+      padding:24px;
+    }
+    .modal-overlay.active { opacity:1; pointer-events:auto; }
+    .modal-box {
+      background:#fff; border-radius:var(--radius);
+      max-width:900px; width:100%; max-height:90vh;
+      display:flex; overflow:hidden;
+      transform:translateY(20px); transition:transform .4s cubic-bezier(.4,0,.2,1);
+      box-shadow:0 25px 50px rgba(0,0,0,.3);
+      position:relative;
+    }
+    .modal-overlay.active .modal-box { transform:translateY(0); }
+    
+    .modal-close {
+      position:absolute; top:20px; right:20px;
+      width:40px; height:40px; background:var(--gray-100);
+      border-radius:50%; font-size:1.5rem; color:var(--gray-500);
+      display:flex; align-items:center; justify-content:center;
+      z-index:10; transition:.2s;
+    }
+    .modal-close:hover { background:var(--orange); color:#fff; transform:rotate(90deg); }
+    
+    .modal-left {
+      flex:0 0 320px; padding:48px 32px;
+      background:var(--gray-50); border-right:1px solid var(--gray-200);
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+    }
+    .modal-left img {
+      width:200px; height:200px; border-radius:16px;
+      object-fit:cover; object-position:center top;
+      margin-bottom:24px; box-shadow:0 12px 30px rgba(0,0,0,.08);
+    }
+    .modal-left.contain img { object-fit:contain; padding:20px; background:#fff; }
+    
+    .modal-chip {
+      padding:8px 16px; background:#fff; border:1px solid var(--gray-200);
+      border-radius:8px; font-size:.85rem; font-weight:600;
+      display:inline-flex; align-items:center; gap:8px;
+      color:var(--gray-700); transition:.2s; margin:4px;
+    }
+    .modal-chip:hover { border-color:var(--orange); color:var(--orange); box-shadow: 0 4px 10px rgba(234,104,26,0.1); }
+    
+    .modal-right { flex:1; padding:48px; overflow-y:auto; }
+    .modal-right h3 { font-size:2rem; font-weight:800; color:var(--blue); margin-bottom:8px; }
+    .modal-right .sub { color:var(--orange); font-weight:700; text-transform:uppercase; font-size:.85rem; letter-spacing:1px; margin-bottom:28px; display: inline-block; padding: 4px 12px; background: rgba(234,104,26,0.1); border-radius: 4px;}
+    .modal-right .bio p { color:var(--gray-600); line-height:1.8; font-size:1.05rem; margin-bottom:16px; }
+
+    /* ====== RESPONSIVE ====== */
+    @media(max-width:1024px) {
+      .pillars-grid { grid-template-columns:1fr 1fr; }
+      .leader-split-card { grid-template-columns: 1fr; }
+      .leader-img-col img { height: 350px; }
+      .journey-grid { grid-template-columns:1fr; gap: 40px; }
+      .journey-sticky { position:relative; top:0; }
+      .journey-stats { flex-direction: row; }
+    }
+    @media(max-width:768px) {
+      .pillars-grid { grid-template-columns:1fr; }
+      .loc-grid { grid-template-columns:1fr; }
+      .about-hero { padding:140px 0 100px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 30px)); }
+      .modal-box { flex-direction:column; }
+      .modal-left { flex:auto; border-right:none; border-bottom:1px solid var(--gray-200); padding:32px; }
+      .modal-left img { width:160px; height:160px; }
+      .modal-right { padding:32px; overflow-y:visible; }
+      .journey-cards { padding-left: 16px; }
+      .journey-card { padding: 24px; }
+      .journey-card::before { left: -25px; }
+      .journey-stats { flex-direction: column; gap: 16px; border-top: none; padding-top: 16px; margin-top: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="about-hero-bg-shapes">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10%" cy="80%" r="150" />
+        <circle cx="90%" cy="20%" r="250" />
+      </svg>
+    </div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="sr" style="max-width:800px;margin:0 auto;">
+        <span class="badge">About Our Foundation</span>
+        <h1>We Are Building a <span>Brighter Future</span></h1>
+        <p>
+          Ujjawal Bhoomi Foundation connects resources with those who need them most. From grassroots education to vital healthcare, we are empowering communities to lead dignified, sustainable lives.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION / VISION / VALUES text alignment tweaks -->
+  <section class="pillars">
+    <div class="container">
+      <div class="pillars-grid">
+        <div class="pillar-card sr">
+          <div class="pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+          </div>
+          <h3>Our Mission</h3>
+          <p>To transform lives through sustainable community development programs that empower individuals, strengthen communities, and create opportunities for the most vulnerable.</p>
+        </div>
+        <div class="pillar-card sr d1">
+          <div class="pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Our Vision</h3>
+          <p>A world where every individual has access to quality education, healthcare, a clean environment, and the opportunity to live with complete dignity.</p>
+        </div>
+        <div class="pillar-card sr d2">
+          <div class="pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Our Values</h3>
+          <p>Transparency, compassion, and grassroots empowerment. We design community-driven, culturally sensitive programs built for lasting, intergenerational impact.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP (Split Card) -->
+  <section class="leadership">
+    <div class="container">
+      <div class="section-header sr">
+        <span class="section-label">Leadership</span>
+        <h2 class="section-title">The Heart Behind Our Mission</h2>
+        <p class="section-subtitle">Dedicated leadership guiding our initiatives for maximum grassroots impact.</p>
+      </div>
+      
+      <div class="leader-split-card sr d1" onclick="openModal('leader-manish')">
+        <div class="leader-img-col">
+          <img src="https://i.ibb.co/t1HJjJ8/8faa1087-94b4-4b9e-9ee0-aafa2d031cb2-2.png" alt="Manish Tamrakar">
+        </div>
+        <div class="leader-info-col">
+          <h3>Manish Tamrakar</h3>
+          <span class="role">Founder & Director</span>
+          <p>With years of grassroots experience in social welfare and environmental sustainability, Manish has dedicated his life to creating lasting impact in underserved communities. His hands-on approach ensures every program directly addresses real community needs.</p>
+          <button class="read-btn">Read Full Bio</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="partners">
+    <div class="container">
+      <div class="section-header sr left-aligned" style="max-width: 800px; margin: 0 auto 60px;">
+        <span class="section-label">Ecosystem</span>
+        <h2 class="section-title">Collaborating for Change</h2>
+        <p class="section-subtitle">We partner with visionary organizations to deliver unmatched value, scale our programs, and create deeper impact across regions.</p>
+      </div>
+      
+      <div class="card-grid" id="partner-grid">
+        <div class="profile-card sr" onclick="openModal('partner-sangmitra')">
+          <div class="card-avatar contain"><img src="https://i.ibb.co/n3HN52g/sangmitra.jpg" alt="Sangmitra Trust"></div>
+          <h3>Sangmitra Trust</h3>
+          <span class="meta">Community Partner</span>
+          <button class="card-btn">Explore</button>
+        </div>
+        <div class="profile-card sr d1" onclick="openModal('partner-parivartak')">
+          <div class="card-avatar contain"><img src="https://i.ibb.co/gT3Pj7k/parivartak-support.jpg" alt="Parivartak Support"></div>
+          <h3>Parivartak Support</h3>
+          <span class="meta">Training Partner</span>
+          <button class="card-btn">Explore</button>
+        </div>
+        <div class="profile-card sr d2" onclick="openModal('partner-deep')">
+          <div class="card-avatar contain"><img src="https://i.ibb.co/DwqCm3K/Screenshot-2024-10-16-132912.png" alt="Deep Photography"></div>
+          <h3>Deep Photography</h3>
+          <span class="meta">Media Partner</span>
+          <button class="card-btn">Explore</button>
+        </div>
+        <div class="profile-card sr d3 partner-extra" style="display:none" onclick="openModal('partner-dakshi')">
+          <div class="card-avatar contain"><img src="https://i.postimg.cc/9FGZ1ddN/IMG-20240907-WA0001.jpg" alt="Dakshi Foundation"></div>
+          <h3>Dakshi Foundation</h3>
+          <span class="meta">Strategic Partner</span>
+          <button class="card-btn">Explore</button>
+        </div>
+      </div>
+      
+      <div class="show-more-wrap sr d1">
+        <button class="show-more-btn" onclick="togglePartners(this)">View All Partners</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team">
+    <div class="container">
+      <div class="section-header sr">
+        <span class="section-label">Our Team</span>
+        <h2 class="section-title">The People Behind the Impact</h2>
+        <p class="section-subtitle">A dedicated group of professionals and volunteers committed to creating change at the grassroots level.</p>
+      </div>
+      
+      <div class="card-grid" id="team-grid">
+        <div class="profile-card sr" onclick="openModal('team-priya')">
+          <div class="card-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="Priya Sharma"></div>
+          <h3>Priya Sharma</h3>
+          <span class="meta">Program Coordinator</span>
+          <button class="card-btn">Meet Priya</button>
+        </div>
+        <div class="profile-card sr d1" onclick="openModal('team-rajesh')">
+          <div class="card-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" alt="Rajesh Verma"></div>
+          <h3>Rajesh Verma</h3>
+          <span class="meta">Field Operations Lead</span>
+          <button class="card-btn">Meet Rajesh</button>
+        </div>
+        <div class="profile-card sr d2" onclick="openModal('team-sunita')">
+          <div class="card-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="Sunita Patel"></div>
+          <h3>Sunita Patel</h3>
+          <span class="meta">Education Head</span>
+          <button class="card-btn">Meet Sunita</button>
+        </div>
+        <div class="profile-card sr d3 team-extra" style="display:none" onclick="openModal('team-amit')">
+          <div class="card-avatar"><img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" alt="Amit Kumar"></div>
+          <h3>Amit Kumar</h3>
+          <span class="meta">Healthcare Lead</span>
+          <button class="card-btn">Meet Amit</button>
+        </div>
+      </div>
+      
+      <div class="show-more-wrap sr d1">
+        <button class="show-more-btn" onclick="toggleTeam(this)">View Full Team</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section class="journey">
+    <div class="container">
+      <div class="journey-grid">
+        <div class="journey-sticky sr">
+          <span class="section-label">Our Journey</span>
+          <h2 class="section-title" style="margin-bottom: 20px;">Building Impact<br>Since 2020</h2>
+          <p class="section-subtitle" style="max-width: 100%; text-align: left; font-size: 1.1rem;">From a small group of passionate volunteers to a recognized community development organization — every milestone reflects our commitment to creating real change.</p>
+          <div class="journey-stats">
+            <div class="journey-stat"><strong>4+</strong><span>Years Active</span></div>
+            <div class="journey-stat"><strong>1k+</strong><span>Lives Touched</span></div>
+          </div>
+        </div>
+
+        <div class="journey-cards">
+          <div class="journey-card sr">
+            <div class="journey-card-header">
+              <span class="journey-year">2020</span>
+              <span class="journey-pill">Phase 01</span>
+            </div>
+            <h3>Foundation Established</h3>
+            <p>Ujjawal Bhoomi Foundation was established with a vision to create lasting change in underserved communities across India.</p>
+            <ul class="journey-features">
+              <li>Registered as a non-profit</li>
+              <li>Built the founding volunteer team</li>
+            </ul>
+          </div>
+          
+          <div class="journey-card sr d1">
+            <div class="journey-card-header">
+              <span class="journey-year">2021</span>
+              <span class="journey-pill">Phase 02</span>
+            </div>
+            <h3>Programs Launched</h3>
+            <p>Launched our first community programs focusing on education, healthcare, and environmental awareness.</p>
+            <ul class="journey-features">
+              <li>First major plantation drive</li>
+              <li>Local school supply distribution</li>
+            </ul>
+          </div>
+          
+          <div class="journey-card sr d2">
+            <div class="journey-card-header">
+              <span class="journey-year">2023</span>
+              <span class="journey-pill">Phase 03</span>
+            </div>
+            <h3>Strategic Growth</h3>
+            <p>Expanded our reach through strategic partnerships with like-minded organizations and government bodies.</p>
+            <ul class="journey-features">
+              <li>Formed key NGO consortiums</li>
+              <li>Expanded to new districts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHERE WE WORK -->
+  <section class="locations">
+    <div class="container">
+      <div class="section-header sr">
+        <span class="section-label">Our Presence</span>
+        <h2 class="section-title">Where We Work</h2>
+        <p class="section-subtitle">Creating impact across communities in Madhya Pradesh and responding where help is needed most.</p>
+      </div>
+      
+      <div class="loc-grid">
+        <div class="loc-card sr">
+          <div class="loc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h4>Head Office</h4>
+          <p>Bhopal, MP, India</p>
+        </div>
+        <div class="loc-card sr d1">
+          <div class="loc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h4>Field Operations</h4>
+          <p>Rural communities across MP</p>
+        </div>
+        <div class="loc-card sr d2">
+          <div class="loc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          </div>
+          <h4>Outreach Areas</h4>
+          <p>Districts across Central India</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta sr">
+    <div class="container" style="max-width:1000px;">
+      <div class="cta-box">
+        <h2>Ready to Make a Difference?</h2>
+        <p>Join us in our mission to create lasting change in the lives of those who need it most. Whether you donate, volunteer, or partner with us — every action counts.</p>
+        <div class="cta-actions">
+          <button class="btn-white">Donate Now</button>
+          <button class="btn-outline">Become a Volunteer</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Ujjawal Bhoomi Foundation. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal" onclick="closeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div class="modal-left" id="modal-left">
+        <img id="modal-img" src="" alt="">
+        <div id="modal-chips" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;"></div>
+      </div>
+      <div class="modal-right">
+        <h3 id="modal-name"></h3>
+        <div class="sub" id="modal-role"></div>
+        <div class="bio" id="modal-bio"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // --- Scroll Reveal ---
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.sr').forEach(el => obs.observe(el));
+
+    // --- Show More ---
+    function togglePartners(btn) {
+      const extras = document.querySelectorAll('.partner-extra');
+      const showing = extras[0]?.style.display !== 'none';
+      extras.forEach(el => { el.style.display = showing ? 'none' : 'flex'; });
+      btn.innerHTML = showing ? 'View All Partners' : 'Show Less';
+      if (!showing) extras.forEach(el => { el.classList.remove('visible'); setTimeout(()=>el.classList.add('visible'), 50); });
+    }
+    
+    function toggleTeam(btn) {
+      const extras = document.querySelectorAll('.team-extra');
+      const showing = extras[0]?.style.display !== 'none';
+      extras.forEach(el => { el.style.display = showing ? 'none' : 'flex'; });
+      btn.innerHTML = showing ? 'View Full Team' : 'Show Less';
+      if (!showing) extras.forEach(el => { el.classList.remove('visible'); setTimeout(()=>el.classList.add('visible'), 50); });
+    }
+
+    // --- Modal Data ---
+    const modalData = {
+      'leader-manish': {
+        name: 'Manish Tamrakar', role: 'Founder & Director',
+        img: 'https://i.ibb.co/t1HJjJ8/8faa1087-94b4-4b9e-9ee0-aafa2d031cb2-2.png',
+        bio: `<p>Manish Tamrakar is the visionary founder of Ujjawal Bhoomi Foundation, driven by a deep passion for community empowerment and sustainable development. With years of grassroots experience in social welfare, environmental sustainability, and community mobilization, Manish has dedicated his life to creating lasting impact.</p><p>Under his leadership, Ujjawal Bhoomi Foundation has grown from a local initiative into a recognized organization working across education, healthcare, environmental conservation, and community development.</p><p>Manish believes that true transformation begins at the grassroots level — by empowering individuals, strengthening communities, and building sustainable systems that create opportunities for generations to come.</p>`,
+        chips: ['<a class="modal-chip" href="mailto:info@ujjawalbhoomifoundation.in">✉ Email</a>', '<a class="modal-chip" href="tel:+919424499188">📞 Call</a>'],
+      },
+      'partner-sangmitra': {
+        name: 'Sangmitra Trust', role: 'Community Partner',
+        img: 'https://i.ibb.co/n3HN52g/sangmitra.jpg', contain: true,
+        bio: '<p>Sangmitra Trust is dedicated to building stronger communities through social welfare and empowerment programs. As a valued partner, they collaborate with Ujjawal Bhoomi Foundation on grassroots initiatives that promote social inclusion, community health awareness, and capacity-building programs.</p><p>Their joint efforts focus on creating sustainable models of community engagement that empower local populations to take ownership of their own development journey.</p>',
+      },
+      'partner-parivartak': {
+        name: 'Parivartak Support', role: 'Training Partner',
+        img: 'https://i.ibb.co/gT3Pj7k/parivartak-support.jpg', contain: true,
+        bio: '<p>Parivartak Support Foundation creates positive change through education and awareness initiatives. Together with UBF, they design programs that educate communities about health, hygiene, environmental responsibility, and social welfare.</p><p>Their partnership focuses on behavioral change communication, training workshops, and awareness campaigns reaching thousands across rural and semi-urban areas.</p>',
+      },
+      'partner-deep': {
+        name: 'Deep Photography', role: 'Media Partner',
+        img: 'https://i.ibb.co/DwqCm3K/Screenshot-2024-10-16-132912.png', contain: true,
+        bio: '<p>Deep Photography captures moments that matter and documents the transformational journey of Ujjawal Bhoomi Foundation. Through powerful visual storytelling, they help communicate the impact of our programs to supporters, donors, and the wider community.</p>',
+      },
+      'partner-dakshi': {
+        name: 'Dakshi Foundation', role: 'Strategic Partner',
+        img: 'https://i.postimg.cc/9FGZ1ddN/IMG-20240907-WA0001.jpg', contain: true,
+        bio: '<p>Dakshi Foundation fosters sustainable solutions for community development. As a strategic partner, they bring expertise in solid waste management, environmental sustainability, and community mobilization that complements UBF\'s mission.</p><p>Together, they work on joint projects including environmental awareness campaigns, waste management initiatives, and sustainable development programs.</p>',
+      },
+      'team-priya': {
+        name: 'Priya Sharma', role: 'Program Coordinator',
+        img: 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png',
+        bio: '<p>Priya leads the coordination of all community outreach programs, ensuring that each initiative reaches the communities that need it most. With a background in social work, she brings compassion and efficiency to every project.</p>',
+      },
+      'team-rajesh': {
+        name: 'Rajesh Verma', role: 'Field Operations Lead',
+        img: 'https://cdn-icons-png.flaticon.com/512/4140/4140037.png',
+        bio: '<p>Rajesh manages on-ground field operations across multiple districts. His deep understanding of rural communities helps the foundation design programs that create real, sustainable impact.</p>',
+      },
+      'team-sunita': {
+        name: 'Sunita Patel', role: 'Education Program Head',
+        img: 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png',
+        bio: '<p>Sunita oversees all education-related initiatives including school supply drives, scholarship programs, and learning workshops. Her dedication has helped hundreds of students access quality education.</p>',
+      },
+      'team-amit': {
+        name: 'Amit Kumar', role: 'Healthcare Initiatives Lead',
+        img: 'https://cdn-icons-png.flaticon.com/512/4140/4140037.png',
+        bio: '<p>Amit coordinates medical camps and healthcare awareness drives across rural communities. His public health background enables the foundation to deliver meaningful healthcare interventions.</p>',
+      },
+    };
+
+    function openModal(id) {
+      const d = modalData[id]; if (!d) return;
+      document.getElementById('modal-img').src = d.img;
+      document.getElementById('modal-name').textContent = d.name;
+      document.getElementById('modal-role').textContent = d.role;
+      document.getElementById('modal-bio').innerHTML = d.bio;
+      document.getElementById('modal-chips').innerHTML = (d.chips||[]).join('');
+      const ml = document.getElementById('modal-left');
+      ml.classList.toggle('contain', !!d.contain);
+      document.getElementById('modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+</html>

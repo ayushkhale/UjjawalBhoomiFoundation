@@ -1,0 +1,222 @@
+export const eventsData = [
+  {
+    id: "33345",
+    title: "स्वतंत्रता दिवस",
+    purpose: "तिरंगा रैली",
+    date: "2025-08-15",
+    location: "Bhopal",
+    addedBy: "neelu",
+    createdAt: "2025-08-15T05:53:44.008Z",
+    updatedAt: "2025-08-15T05:53:44.008Z",
+    category: "National Day",
+    categoryColor: "orange",
+    thumb: "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/33345-24545af9-5bf7-438b-8593-59d8c2c4087a-.jpeg",
+    shortDesc: "स्वतंत्रता दिवस के पावन अवसर पर एक भव्य तिरंगा रैली का आयोजन किया गया...",
+    description: `स्वतंत्रता दिवस के पावन अवसर पर डाक्शी फाउंडेशन द्वारा एक भव्य तिरंगा रैली का आयोजन किया गया, जिसमें सेंट्रल लाइब्रेरी मौलाना आज़ाद के छात्र भी उत्साहपूर्वक शामिल हुए। रैली का उद्देश्य देशभक्ति की भावना को जागृत करना, राष्ट्र के प्रति एकजुटता दिखाना और युवाओं में स्वतंत्रता संग्राम के मूल्यों को संजोना था।\n\nकार्यक्रम की शुरुआत राष्ट्रगान के साथ हुई, जिसके बाद प्रतिभागियों ने हाथों में तिरंगा लेकर नारे लगाए – "वंदे मातरम्", "भारत माता की जय"।\n\nछात्रों और फाउंडेशन के सदस्यों ने मिलकर शहर की मुख्य सड़कों पर तिरंगा यात्रा निकाली, जिससे चारों ओर देशभक्ति का वातावरण बन गया।`,
+    hashtags: "#SwatantrataDiwas #TirangaRally #AzadiKaAmritMahotsav #VandeMataram",
+    images: [
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/33345-24545af9-5bf7-438b-8593-59d8c2c4087a-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/33345-42116680-bf7d-4d8c-a777-67caf3d496a3-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/33345-ed0068ae-ab14-477a-9bd3-255a1be88832-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/33345-92207b4d-47f9-4a4b-bf04-62500ccff79f-.jpeg"
+    ]
+  },
+  {
+    id: "75291",
+    title: "World Environment Day",
+    purpose: "Plantation Drive",
+    date: "2025-06-05",
+    location: "Agra",
+    addedBy: "rohit",
+    createdAt: "2025-06-06T09:40:00.190Z",
+    updatedAt: "2025-06-06T09:40:00.190Z",
+    category: "Environment",
+    categoryColor: "green",
+    thumb: "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/75291-ddfc8aa7-f269-4796-be89-bd3500dbee56-.jpeg",
+    shortDesc: "विश्व पर्यावरण दिवस के अवसर पर आगरा में एक भव्य वृक्षारोपण कार्यक्रम आयोजित किया गया।",
+    description: `🌱 विश्व पर्यावरण दिवस के अवसर पर वृक्षारोपण अभियान 🌱\nदिनांक: 5 जून 2025 | स्थान: आगरा\n\nDakshi Foundation – Innovation for Change के तत्वावधान में विश्व पर्यावरण दिवस के उपलक्ष्य में आगरा में एक भव्य वृक्षारोपण कार्यक्रम आयोजित किया गया। इस अभियान का आयोजन आगरा नगर निगम के सहयोग एवं स्थानीय स्वयंसेवकों की सक्रिय भागीदारी से संपन्न हुआ।\n\nकार्यक्रम का उद्देश्य पर्यावरण संरक्षण, हरियाली को बढ़ावा देना तथा समाज में प्रकृति के प्रति जागरूकता फैलाना रहा। इस अवसर पर अनेक प्रकार के पौधे जैसे नीम, पीपल, अमलतास, और गुलमोहर आदि लगाए गए। स्थानीय नागरिकों, युवाओं, बच्चों एवं वरिष्ठ जनों ने पूरे उत्साह से भाग लिया।\n\n🌿 हमारा मानना है कि –\n"एक वृक्ष, सौ पीढ़ियों का उपहार है।"`,
+    hashtags: "#WorldEnvironmentDay #PlantATree #GoGreen #EkPedDeshKeNaam",
+    images: [
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/75291-ddfc8aa7-f269-4796-be89-bd3500dbee56-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/75291-1e6a0b43-7a2f-4947-8878-764e71181577-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/75291-10582464-f9c6-4259-982e-15692b3fd6c1-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/75291-84cca4a4-4ea6-4d98-b0b4-cd9f4743a6cd-.jpeg"
+    ]
+  },
+  {
+    id: "53402",
+    title: "Yumna Ghat Cleaning Drive",
+    purpose: "River Cleaning",
+    date: "2025-12-13",
+    location: "Yumna Ghat, Agra",
+    addedBy: "rohit",
+    createdAt: "2025-05-18T08:41:55.324Z",
+    updatedAt: "2025-05-18T08:41:55.324Z",
+    category: "Sanitation",
+    categoryColor: "blue",
+    thumb: "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/53402-032497d4-1677-4a84-b4ce-0693ebe97754-.jpeg",
+    shortDesc: "To clean and restore the natural beauty of the Yumna River, removing waste and debris.",
+    description: `Organized by: Dakshi Foundation \nCollaboration with: Local Environmental NGOs and Community Volunteers\nPresence: Commissioner Shri Ankit Khandelwal, Additional Commissioner Shri Surendra Prasad Yadav\n\nObjective:\nThe primary goal of the Yumna Ghat Cleaning Drive was to clean and restore the natural beauty of the Yumna River, removing waste and debris from both the river and the surrounding area. The initiative aimed to promote environmental conservation and public awareness regarding river pollution.\n\nOutcomes:\nThe volunteers successfully collected approximately 1.5 tons of waste from the river and its surroundings. The collected waste was handed over to the Agra Municipal Corporation for appropriate disposal and treatment. The event garnered significant public support.`,
+    hashtags: "#YumnaGhatCleaning #SaveOurRivers #CleanIndia",
+    images: [
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/53402-032497d4-1677-4a84-b4ce-0693ebe97754-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/53402-633bf0e5-90a9-4203-932a-3eba4efea993-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/53402-acd5b2b3-bbb5-4a61-91ba-11c51b4e962f-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/53402-64c2f6ab-db2d-4b8d-81f0-a3565af64233-.jpeg"
+    ]
+  },
+  {
+    id: "83720",
+    title: "Narmada Cleaning Drive",
+    purpose: "Narmada Cleaning Drive",
+    date: "2024-12-12",
+    location: "Mandagan Ghat Bharkachh",
+    addedBy: "rohit",
+    createdAt: "2025-05-18T08:31:58.263Z",
+    updatedAt: "2025-05-18T08:31:58.263Z",
+    category: "Sanitation",
+    categoryColor: "blue",
+    thumb: "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/83720-82407a40-4357-48f4-8188-31c66273f5c0-.jpg",
+    shortDesc: "Narmada Cleaning Drive by Dakshi Foundation at Mandagan Ghat aimed at preserving the sacred river.",
+    description: `On 12/12/2024, the Dakshi Foundation successfully organized a Narmada Cleaning Drive at Mandagan Ghat, aimed at preserving the sacred river and promoting environmental awareness. The drive was conducted in the presence of Team Sewa Shree and the Raisen Police (MP Police), who actively contributed to the clean-up efforts.\n\nActivities:\nDistribution of gloves, trash bags, and safety gear to volunteers.\nCleaning of the riverbank and surrounding areas.\nSegregation of waste into recyclable and non-recyclable categories.\n\nThe Narmada Cleaning Drive at Mandagan Ghat was a remarkable effort towards restoring the beauty and health of the river. The active participation of Team Sewa Shree, Raisen Police, and local volunteers showcased a unified commitment to environmental protection.`,
+    hashtags: "#CleanNarmada 🌊 #MandaganGhatCleanup #SaveOurRivers",
+    images: [
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/83720-82407a40-4357-48f4-8188-31c66273f5c0-.jpg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/83720-eab6170f-9a6c-46f2-b79c-5d9beca5f2a7-.jpg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/83720-998d489f-c77d-4bfc-8164-98f2256a5d89-.png",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/83720-e3afa60f-6f60-451c-9fa9-7b76600b6244-.jpg"
+    ]
+  },
+  {
+    id: "81105",
+    title: "Republic Day Celebration",
+    purpose: "Plantation Drive for a Greener India",
+    date: "2025-01-26",
+    location: "Raisen",
+    addedBy: "rohit",
+    createdAt: "2025-05-18T08:27:27.170Z",
+    updatedAt: "2025-05-18T08:27:27.170Z",
+    category: "National Day",
+    categoryColor: "orange",
+    thumb: "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/81105-f0eb31de-2b71-42c8-9dc9-32c3dc781ed0-.jpeg",
+    shortDesc: "Plantation Drive under the Mission: One Plant for Mother, One Plant for Motherland.",
+    description: `Republic Day Celebration: Plantation Drive for a Greener India\n\nThis Republic Day, Dakshi Foundation is proud to celebrate the spirit of our nation with a meaningful initiative – a Plantation Drive under the Mission: "One Plant for Mother, One Plant for Motherland."\n\nAs part of our vision for Innovation for Change, we are dedicated to promoting environmental sustainability and fostering a deeper connection with nature. This drive reflects our commitment to creating a healthier, greener future for generations to come.\n\nOn this special day, let us honor our motherland by planting trees that symbolize growth, hope, and unity. Together, we can contribute to environmental conservation and support the nation's call for sustainable living.`,
+    hashtags: "#RepublicDay2025 #PlantForMotherland #GreenIndiaMission",
+    images: [
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/81105-f0eb31de-2b71-42c8-9dc9-32c3dc781ed0-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/81105-b413ed92-487e-4ad5-b29e-f55197917a66-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/81105-f9886c02-b9e2-4cbe-8e55-37cb48f7cdcb-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/81105-1bc6b6cc-8860-46c4-a9c2-a5e5f5126dea-.jpeg"
+    ]
+  },
+  {
+    id: "49715",
+    title: "पक्षियों की रक्षा",
+    purpose: "गर्मी के मौसम में बेजुवान पक्षियों की रक्षा",
+    date: "2025-01-26",
+    location: "Bhopal",
+    addedBy: "rohit",
+    createdAt: "2025-05-18T08:25:12.824Z",
+    updatedAt: "2025-05-18T08:25:12.824Z",
+    category: "Wildlife",
+    categoryColor: "green",
+    thumb: "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/49715-7a1c63d2-0be1-442f-a2fd-49c0ac8b8a31-.png",
+    shortDesc: "हमारी टीम ने गर्मी के मौसम के कारण बेजुवान पक्षियों की मदद के लिए मिट्टी के सकोरे वितरित करने का कार्यक्रम संचालित किया है।",
+    description: `🌿🐦 गर्मी के मौसम में बेजुवान पक्षियों की रक्षा 🐦🌿\n\nहमारी टीम, Dakshi Foundation, ने गर्मी के मौसम के कारण बेजुवान पक्षियों की मदद के लिए मिट्टी के सकोरे वितरित करने का कार्यक्रम संचालित किया है। इस पहल से हम उन पक्षियों की मदद कर रहे हैं जिन्हें पानी की व्यवस्था की जरुरत है। 🌿🕊️\n\nआइए, हम सभी मिलकर इन पक्षियों की सुरक्षा और उनके लिए समृद्धि लाने के लिए काम करें। हमारे यह प्रयास एक स्वच्छ और हरित वातावरण की दिशा में एक महत्वपूर्ण कदम है। 💧🌳\n\nआओ, हम सब मिलकर प्रकृति के संरक्षण में योगदान दें। 🌍🌻`,
+    hashtags: "#SaveBirds #DakshiFoundation #SustainableLiving #EnvironmentProtection",
+    images: [
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/49715-7a1c63d2-0be1-442f-a2fd-49c0ac8b8a31-.png",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/49715-a2c5f90b-947e-40ea-b54e-ef9bf6ccf61f-.png",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/49715-92a913da-370c-493d-be0c-bcb27699bb2e-.png",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/49715-520e191d-1d83-4200-82fc-2b8c7e0a54ec-.jpeg"
+    ]
+  },
+  {
+    id: "35532",
+    title: "Sustainable Development",
+    purpose: "Plantation Drive",
+    date: "2024-08-12",
+    location: "Agra",
+    addedBy: "rohit",
+    createdAt: "2025-05-18T08:20:18.095Z",
+    updatedAt: "2025-05-18T08:20:18.095Z",
+    category: "Environment",
+    categoryColor: "green",
+    thumb: "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/35532-3a864dd7-a184-4782-87a2-6e80f1f2901a-.jpeg",
+    shortDesc: "The drive was held in the presence of the Honorable Mayor of Agra Municipal Corporation aimed at enhancing green cover.",
+    description: `Plantation Drive by Dakshi Foundation in Agra\n\nOn 12/08/2024, the Dakshi Foundation organized a successful plantation drive in Agra, aimed at promoting environmental sustainability and enhancing green cover in the city. The event was held in the presence of the Honorable Mayor of Agra Municipal Corporation, who actively participated in the initiative.\n\nThe drive began with an inauguration speech by the Mayor, emphasizing the critical role of trees in combating pollution and climate change. The volunteers, equipped with saplings and gardening tools, planted numerous saplings of native tree species such as Neem, Peepal, Gulmohar, and Banyan.\n\nThe plantation drive marked a significant step towards making Agra a greener and healthier city.`,
+    hashtags: "#PlantAgraGreen 🌱 #MayorAgra #EnvironmentalAwareness #GreenIndia",
+    images: [
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/35532-3a864dd7-a184-4782-87a2-6e80f1f2901a-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/35532-3e3cd308-7662-468f-b372-3f315576b458-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/35532-4d35050c-4e05-46b4-b458-ad3940f62c30-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/35532-40ebc12e-0d52-4fe7-9432-2e1b045b5252-.jpeg"
+    ]
+  },
+  {
+    id: "36198",
+    title: "School Awareness Program",
+    purpose: "Waste management",
+    date: "2024-11-23",
+    location: "Agra",
+    addedBy: "rohit",
+    createdAt: "2025-05-18T08:17:57.795Z",
+    updatedAt: "2025-05-18T08:17:57.795Z",
+    category: "Education",
+    categoryColor: "blue",
+    thumb: "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/36198-333d6cf1-c14a-40a2-8cea-6c3a6fa5fa26-.png",
+    shortDesc: "Dakshi Foundation conducted an impactful education institute awareness program on waste management and environmental issues.",
+    description: `Dakshi Foundation and NYAST Foundation conducted an impactful education institute awareness program on waste management and environmental issues. Together, we are driving innovation for a sustainable change! 🌿♻️\n\nJoin us in making a difference for a greener tomorrow.`,
+    hashtags: "#EducationAwareness #WasteManagement #EnvironmentProtection",
+    images: [
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/36198-333d6cf1-c14a-40a2-8cea-6c3a6fa5fa26-.png",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/36198-09e6dd9e-d9df-4732-bb77-2dd881e8fc76-.png",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/36198-76198e7d-0853-4105-9efb-9cd776ba8fd6-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/36198-78338af9-a0c0-413e-9088-cb5fbd623348-.jpeg"
+    ]
+  },
+  {
+    id: "61526",
+    title: "Community Mobilizing",
+    purpose: "Waste management",
+    date: "2024-12-05",
+    location: "Bhopal",
+    addedBy: "rohit",
+    createdAt: "2025-05-18T08:06:55.546Z",
+    updatedAt: "2025-05-18T08:06:55.546Z",
+    category: "Sanitation",
+    categoryColor: "orange",
+    thumb: "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/61526-21f56e06-cc78-49da-8cb4-efa901972161-.png",
+    shortDesc: "A significant Community Mobilizing initiative in rural areas of Raisen District, aimed at promoting cleanliness.",
+    description: `The Dakshi Foundation Team conducted a significant Community Mobilizing initiative in rural areas of Raisen District, aimed at promoting cleanliness and waste management awareness. During this session, the team urged the local community to pay special attention to cleanliness and hygiene, while also explaining the importance of participating in the Swachh Sarvekshan initiative.\n\nThe team provided detailed insights into the four key types of Source Segregation—wet, dry, hazardous, and biodegradable waste. The community was educated on how proper segregation at the source can reduce waste accumulation and improve waste management practices. The harmful effects of improper garbage disposal were highlighted, emphasizing the environmental and health risks posed by unregulated waste management.\n\nIn addition, the Dakshi Foundation Team introduced the concept of Community Composting.`,
+    hashtags: "#CommunityMobilizing #SwachhSarvekshan #WasteSegregation #SourceSegregation",
+    images: [
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/61526-21f56e06-cc78-49da-8cb4-efa901972161-.png",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/61526-ef7eabbd-c4e0-4cde-ae33-4161d7537849-.png",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/61526-6fee6e58-3a48-4bce-929e-3ea088217a02-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/61526-3f4c1073-6c2b-4fa6-90f2-cdba923fdc91-.jpeg"
+    ]
+  },
+  {
+    id: "13952",
+    title: "75th Indian Constitution Day",
+    purpose: "Indian Constitution Day",
+    date: "2024-11-26",
+    location: "Central Library Bhopal",
+    addedBy: "rohit",
+    createdAt: "2025-05-18T08:01:17.946Z",
+    updatedAt: "2025-05-18T08:01:17.946Z",
+    category: "National Day",
+    categoryColor: "blue",
+    thumb: "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/13952-66bae256-3be2-4f45-8497-9cbffdec6cfe-.jpeg",
+    shortDesc: "Happy 75th Indian Constitution Day! Today, we celebrate the essence of democracy, equality, and justice.",
+    description: `Happy 75th Indian Constitution Day with Dakshi Foundation! 🎉📜\n\nToday, we celebrate the essence of democracy, equality, and justice as we mark the 75th Indian Constitution Day with pride and reverence. 🌟 Let's commemorate the document that lays the foundation of our nation's values and aspirations. 🇮🇳✨\n\nJoin Dakshi Foundation in honoring the legacy of our Constitution and the ideals it embodies. Together, let's uphold the principles of liberty, fraternity, and equality that define our diverse and inclusive society. 🎊📚\n\nCome together for a special event filled with insightful discussions, cultural performances, and moments of reflection as we celebrate this significant day in our country's history.`,
+    hashtags: "#IndianConstitutionDay #75thAnniversary #Democracy #Equality #Justice",
+    images: [
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/13952-66bae256-3be2-4f45-8497-9cbffdec6cfe-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/13952-0c85205b-54a7-45d6-adf5-d479a8f8acdc-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/13952-414874cf-467c-402f-8160-cba5472f9884-.jpeg",
+      "https://dakshifoundation.s3.ap-south-1.amazonaws.com/event-images/13952-39cb0d23-86cd-4d10-9902-c42565b70a13-.jpeg"
+    ]
+  }
+];

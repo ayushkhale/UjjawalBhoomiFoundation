@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Involved — Prototype 3 (Premium Long Scroll)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ====== RESET & BASE ====== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; color: #374151; background: #f9fafb; line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3 { color: #111827; }
+
+    :root {
+      --blue: #113E7C; --orange: #EA681A; --green: #23974F;
+      --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-500: #6b7280;
+      --radius: 20px;
+    }
+
+    /* ====== ANIMATIONS ====== */
+    .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* ====== NAVIGATION (Logo Header) ====== */
+    header {
+      position: absolute; top: 0; left: 0; width: 100%; padding: 24px 40px;
+      display: flex; justify-content: center; z-index: 100;
+    }
+    .logo-container {
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+      padding: 12px 32px; border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 16px;
+    }
+    .logo-container img { height: 45px; object-fit: contain; }
+
+    /* ====== HERO (Angled Premium) ====== */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--blue) 0%, #0c2340 100%);
+      padding: 200px 24px 160px; text-align: center; color: #fff;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 6vw));
+      overflow: hidden;
+    }
+    .hero-shapes { position: absolute; inset: 0; pointer-events: none; opacity: 0.5; }
+    .hero-shapes circle { fill: var(--orange); opacity: 0.15; }
+    
+    .hero-label {
+      display: inline-block; padding: 8px 24px; background: rgba(234, 104, 26, 0.15); border: 1px solid rgba(234, 104, 26, 0.3);
+      border-radius: 50px; font-size: 0.85rem; font-weight: 800; color: var(--orange); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .hero-content { position: relative; z-index: 10; max-width: 800px; margin: 0 auto; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 24px; }
+    .hero h1 span { color: var(--orange); position: relative; }
+    .hero p { font-size: 1.15rem; color: rgba(255,255,255,0.85); font-weight: 400; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+    /* ====== FORM CARDS (Glassy & Elevated) ====== */
+    .form-section { padding: 100px 24px; position: relative; }
+    
+    .form-card {
+      background: #fff; border-radius: var(--radius);
+      box-shadow: 0 20px 50px rgba(17, 62, 124, 0.05);
+      border: 1px solid rgba(17, 62, 124, 0.08); max-width: 1000px; margin: 0 auto;
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    @media (min-width: 900px) { .form-card { flex-direction: row; } }
+    
+    .form-sidebar {
+      background: var(--gray-50); padding: 60px 40px; flex: 0 0 350px;
+      border-right: 1px solid var(--gray-200); position: relative; overflow: hidden;
+    }
+    .sidebar-bg { position: absolute; inset: 0; opacity: 0.03; background-image: radial-gradient(var(--blue) 2px, transparent 2px); background-size: 20px 20px; }
+    .form-sidebar h2 { font-size: 2.2rem; font-weight: 800; color: var(--blue); margin-bottom: 16px; position: relative; z-index: 2; line-height: 1.1; }
+    .form-sidebar p { color: var(--gray-500); font-size: 1rem; position: relative; z-index: 2; margin-bottom: 32px; }
+    .form-sidebar .badge { display: inline-block; padding: 6px 14px; background: rgba(234, 104, 26, 0.1); color: var(--orange); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border-radius: 50px; margin-bottom: 24px; letter-spacing: 1px; }
+
+    .form-body { padding: 60px 40px; flex: 1; background: #fff; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 20px; }
+    @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+    
+    .input-grp { position: relative; }
+    .input-grp.full { grid-column: 1 / -1; }
+    
+    label { display: block; font-size: 0.8rem; font-weight: 700; color: #4b5563; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    label span { color: #dc2626; }
+    
+    input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+      width: 100%; padding: 16px 20px; background: var(--gray-50); border: 2px solid transparent; border-radius: 12px;
+      font-family: inherit; font-size: 0.95rem; color: #111827; transition: all 0.3s; outline: none; font-weight: 500;
+    }
+    input::placeholder, textarea::placeholder { color: #9ca3af; font-weight: 400; }
+    input:focus, textarea:focus, select:focus { background: #fff; border-color: rgba(17,62,124,0.3); box-shadow: 0 8px 20px rgba(17,62,124,0.05); }
+    textarea { resize: vertical; min-height: 120px; }
+
+    /* Custom File Input */
+    .file-input-wrap {
+      border: 2px dashed var(--gray-200); background: var(--gray-50); text-align: center; border-radius: 12px;
+      padding: 32px 24px; transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .file-input-wrap:hover { border-color: var(--blue); background: rgba(17,62,124,0.02); }
+    .file-input-wrap input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+    .file-icon { width: 40px; height: 40px; background: rgba(17,62,124,0.1); color: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-weight: 800; font-size: 1.2rem; }
+    .file-text { font-weight: 700; color: var(--blue); font-size: 1rem; }
+    .file-hint { display: block; font-size: 0.8rem; color: var(--gray-500); margin-top: 6px; }
+
+    /* Beautiful Submit Button */
+    .submit-btn {
+      width: 100%; padding: 18px; background: var(--blue); color: #fff; border: none; border-radius: 12px;
+      font-size: 1.05rem; font-weight: 800; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; margin-top: 16px;
+    }
+    .submit-btn::after { content: '→'; font-size: 1.2rem; transition: 0.3s; }
+    .submit-btn:hover { background: #0c2b59; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(17,62,124,0.2); }
+    .submit-btn:hover::after { transform: translateX(5px); }
+    
+    .submit-btn.orange { background: var(--orange); }
+    .submit-btn.orange:hover { background: #d05a15; box-shadow: 0 15px 30px rgba(234,104,26,0.2); }
+    
+    .submit-btn.green { background: var(--green); }
+    .submit-btn.green:hover { background: #1a743d; box-shadow: 0 15px 30px rgba(35,151,79,0.2); }
+
+    /* ====== PARALLAX SEPARATORS ====== */
+    .separator-banner {
+      background-size: cover; background-position: center; background-attachment: fixed;
+      padding: 140px 24px; text-align: center; color: #fff; position: relative;
+    }
+    .separator-banner::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(17,62,124,0.9), rgba(0,0,0,0.6)); z-index: 1; }
+    .separator-banner.alt::before { background: linear-gradient(to right, rgba(35,151,79,0.9), rgba(0,0,0,0.6)); }
+    .separator-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+    .separator-content h2 { color: #fff; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; margin-bottom: 16px; }
+    .separator-content p { font-size: 1.2rem; color: rgba(255,255,255,0.85); }
+
+    /* ====== DONATE FOOTER ====== */
+    .donate-banner { background: var(--gray-100); padding: 120px 24px; text-align: center; }
+    .donate-box {
+      background: linear-gradient(135deg, var(--orange) 0%, #fa7a2f 100%); padding: 80px 40px;
+      border-radius: var(--radius); max-width: 900px; margin: 0 auto; color: #fff;
+      box-shadow: 0 20px 40px rgba(234, 104, 26, 0.2); position: relative; overflow: hidden;
+    }
+    .donate-box h2 { color: #fff; font-size: 2.5rem; font-weight: 900; margin-bottom: 16px; }
+    .donate-box p { font-size: 1.1rem; color: rgba(255,255,255,0.9); margin-bottom: 40px; }
+    .donate-btn {
+      padding: 18px 48px; background: #fff; color: var(--orange); border-radius: 50px;
+      font-weight: 800; font-size: 1.1rem; border: none; cursor: pointer; transition: 0.3s;
+    }
+    .donate-btn:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+
+    /* Colored accents for specific forms */
+    .form-sidebar.orange h2 { color: var(--orange); }
+    .form-sidebar.orange .badge { background: rgba(234, 104, 26, 0.1); color: var(--orange); }
+    .form-sidebar.green h2 { color: var(--green); }
+    .form-sidebar.green .badge { background: rgba(35, 151, 79, 0.1); color: var(--green); }
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER WITH LOGO -->
+  <header>
+    <div class="logo-container reveal">
+      <img src="../src/assets/namelogo2.png" alt="Ujjawal Bhoomi Foundation">
+    </div>
+  </header>
+
+  <!-- HIGHLIGHTED HERO -->
+  <section class="hero">
+    <div class="hero-shapes">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="15%" cy="80%" r="180" />
+        <circle cx="85%" cy="30%" r="250" />
+      </svg>
+    </div>
+    <div class="hero-content reveal">
+      <span class="hero-label">Take Action</span>
+      <h1>Join Hands With <span>UBF</span></h1>
+      <p>Be a part of us and help in creating positive change and uplifting communities across the nation. Every action shapes the future.</p>
+    </div>
+  </section>
+
+  <!-- ===============================
+       1. VOLUNTEER SECTION 
+       =============================== -->
+  <section class="form-section">
+    <div class="form-card reveal">
+      <div class="form-sidebar orange">
+        <div class="sidebar-bg"></div>
+        <span class="badge">Join the movement</span>
+        <h2>Become A Volunteer</h2>
+        <p>Join us on the ground level. Your energy, time, and dedication make a meaningful difference where it matters most.</p>
+      </div>
+      <div class="form-body">
+        <form class="grid-2">
+          <div class="input-grp"><label>Full Name <span>*</span></label><input type="text" placeholder="John Doe"></div>
+          <div class="input-grp"><label>Father's Name <span>*</span></label><input type="text" placeholder="Father's Name"></div>
+          <div class="input-grp"><label>Mobile Number <span>*</span></label><input type="tel" placeholder="+91 00000 00000"></div>
+          <div class="input-grp"><label>Email Address <span>*</span></label><input type="email" placeholder="john@example.com"></div>
+          <div class="input-grp"><label>Qualification <span>*</span></label><input type="text" placeholder="e.g. Master's in Social Work"></div>
+          <div class="input-grp"><label>Working Experience</label><input type="text" placeholder="Any relevant prior work"></div>
+          
+          <div class="input-grp full"><label>Permanent Address <span>*</span></label><textarea style="min-height: 80px;" placeholder="Full residential location details"></textarea></div>
+          
+          <div class="input-grp full">
+            <label>Upload Your Photograph <span>*</span></label>
+            <div class="file-input-wrap">
+              <input type="file" accept="image/*">
+              <div class="file-icon">↑</div>
+              <div class="file-text">Click to browse or drag file here</div>
+              <span class="file-hint">Supported formats: JPG, PNG. Max size: 2MB.</span>
+            </div>
+          </div>
+
+          <div class="input-grp full"><label>About yourself <span>*</span></label><textarea placeholder="Tell us about your passions and why you're joining..."></textarea></div>
+          <div class="input-grp full"><button type="submit" class="submit-btn orange">Submit Application</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       PARTNER SEPARATOR BANNER 
+       =============================== -->
+  <section class="separator-banner" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2000&auto=format&fit=crop');">
+    <div class="separator-content reveal">
+      <h2>Wish To Become a Partner?</h2>
+      <p>Strategic partnerships empower us to scale our impact, deliver unmatched value, and transform communities together.</p>
+    </div>
+  </section>
+
+  <!-- ===============================
+       2. PARTNER SECTION 
+       =============================== -->
+  <section class="form-section">
+    <div class="form-card reveal">
+      <div class="form-sidebar blue">
+        <div class="sidebar-bg"></div>
+        <span class="badge" style="background: rgba(17,62,124,0.1); color: var(--blue);">Corporate & CSR</span>
+        <h2 style="color: var(--blue);">Become A Partner</h2>
+        <p>Join our Partner Program to directly improve livelihoods, sponsor activities, and hit your CSR targets effectively.</p>
+      </div>
+      <div class="form-body">
+        <form class="grid-2">
+          <div class="input-grp"><label>Organization Name <span>*</span></label><input type="text" placeholder="Your NGO / Company Name"></div>
+          <div class="input-grp"><label>Contact Person <span>*</span></label><input type="text" placeholder="Authorized Representative"></div>
+          <div class="input-grp"><label>Mobile Number <span>*</span></label><input type="tel" placeholder="+91 00000 00000"></div>
+          <div class="input-grp"><label>Email Address <span>*</span></label><input type="email" placeholder="contact@organization.com"></div>
+          <div class="input-grp full"><label>Website Link</label><input type="text" placeholder="https://www.yourwebsite.com"></div>
+          <div class="input-grp full"><label>Mission Statement <span>*</span></label><textarea style="min-height:80px;" placeholder="What does your organization aim to achieve?"></textarea></div>
+          <div class="input-grp full"><label>Address <span>*</span></label><textarea style="min-height:80px;" placeholder="Registered Organization Address"></textarea></div>
+          <div class="input-grp full"><button type="submit" class="submit-btn">Register Partnership</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       INTERNSHIP SEPARATOR BANNER 
+       =============================== -->
+  <section class="separator-banner alt" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2000&auto=format&fit=crop');">
+    <div class="separator-content reveal">
+      <h2>Seeking an Internship?</h2>
+      <p>Kickstart your career while creating a lasting social impact on the front lines of social change.</p>
+    </div>
+  </section>
+
+  <!-- ===============================
+       3. INTERNSHIP SECTION 
+       =============================== -->
+  <section class="form-section">
+    <div class="form-card reveal">
+      <div class="form-sidebar green">
+        <div class="sidebar-bg"></div>
+        <span class="badge">Gain Experience</span>
+        <h2>Apply For Internship</h2>
+        <p>Bring your skills to our dynamic environment. Learn, grow, and build your resume while working on live projects.</p>
+      </div>
+      <div class="form-body">
+        <form class="grid-2">
+          <div class="input-grp"><label>Full Name <span>*</span></label><input type="text" placeholder="John Doe"></div>
+          <div class="input-grp"><label>Email Address <span>*</span></label><input type="email" placeholder="intern@example.com"></div>
+          <div class="input-grp"><label>Mobile Number <span>*</span></label><input type="tel" placeholder="+91 00000 00000"></div>
+          <div class="input-grp"><label>College / University <span>*</span></label><input type="text" placeholder="Institution Name"></div>
+          <div class="input-grp"><label>Degree & Major <span>*</span></label><input type="text" placeholder="e.g. Master of Social Work"></div>
+          <div class="input-grp">
+            <label>Department of Interest <span>*</span></label>
+            <select>
+              <option value="" disabled selected>Select an area</option>
+              <option>Field Operations / Survey</option>
+              <option>Social Media & Marketing</option>
+              <option>Event Management</option>
+              <option>Data & Research</option>
+            </select>
+          </div>
+          
+          <div class="input-grp full">
+            <label>Upload Your Resume (CV) <span>*</span></label>
+            <div class="file-input-wrap" style="border-color: rgba(35, 151, 79, 0.3); background: rgba(35, 151, 79, 0.02);">
+              <input type="file" accept=".pdf,.doc,.docx">
+              <div class="file-icon" style="background: rgba(35, 151, 79, 0.1); color: var(--green);">📄</div>
+              <div class="file-text" style="color: var(--green);">Click to attach your Resume</div>
+              <span class="file-hint">Supported formats: PDF, DOCX. Max size: 5MB.</span>
+            </div>
+          </div>
+
+          <div class="input-grp full"><label>Why internship with UBF? <span>*</span></label><textarea placeholder="Tell us your motivation and what you hope to learn..."></textarea></div>
+          <div class="input-grp full"><button type="submit" class="submit-btn green">Submit Application</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       FINAL CTA 
+       =============================== -->
+  <section class="donate-banner">
+    <div class="donate-box reveal">
+      <h2>Support Ujjawal Bhoomi</h2>
+      <p>Not ready to volunteer or partner yet? Your generosity helps us uplift communities, create lasting change, and make a difference nationwide.</p>
+      <button class="donate-btn">Make a Donation</button>
+    </div>
+  </section>
+
+  <script>
+    // Scroll reveal logic
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    reveals.forEach(el => observer.observe(el));
+    
+    // Simulate loading on active reveal
+    window.addEventListener('load', () => { setTimeout(() => {
+        document.querySelector('.hero-content').classList.add('active');
+        document.querySelector('.logo-container').classList.add('active');
+    }, 100); });
+  </script>
+</body>
+</html>

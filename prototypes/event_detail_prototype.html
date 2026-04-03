@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details — UBF Prototype</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+
+    :root {
+      --ubf-blue: #113E7C; --ubf-orange: #EA681A; --ubf-green: #23974F;
+    }
+
+    /* Top fake header space for prototype */
+    .header-spacer { height: 100px; background: #fff; border-bottom: 1px solid #e2e8f0; margin-bottom: 60px; }
+
+    /* Main Container Card */
+    .event-detail-card {
+      max-width: 1000px; margin: 0 auto 100px; padding: 60px;
+      background: #fff; border-radius: 20px; 
+      border: 1px solid rgba(234, 104, 26, 0.3); /* Subtle orange border to match red/orange from screenshot */
+      box-shadow: 0 20px 50px rgba(17,62,124,0.05);
+    }
+
+    /* Title */
+    .event-detail-card h1 {
+      font-size: 2.8rem; font-weight: 800; color: var(--ubf-blue); margin-bottom: 40px;
+    }
+
+    /* Meta Data Grid (2 Columns) */
+    .meta-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: x 20px; row-gap: 16px; margin-bottom: 40px;
+      font-size: 0.95rem;
+    }
+    .meta-grid div {
+      display: flex; gap: 8px;
+    }
+    .meta-grid strong {
+      color: #0f172a; font-weight: 700;
+    }
+    .meta-grid span {
+      color: #475569; font-weight: 500;
+    }
+
+    /* Description Section */
+    .section-title {
+      font-size: 1.4rem; font-weight: 800; color: #1e293b; margin-bottom: 20px;
+      padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;
+    }
+    .description-text {
+      color: #334155; font-size: 1.05rem; line-height: 1.8; margin-bottom: 40px;
+    }
+    .description-text p { margin-bottom: 16px; }
+    .hashtags { 
+      color: var(--ubf-orange); font-weight: 600; margin-top: 20px; word-break: break-all;
+    }
+
+    /* Images Gallery */
+    .images-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
+      margin-bottom: 50px;
+    }
+    .images-grid img {
+      width: 100%; height: 200px; object-fit: cover; border-radius: 12px;
+      border: 1px solid #e2e8f0; transition: 0.3s;
+    }
+    .images-grid img:hover {
+      transform: scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    /* Action Buttons */
+    .action-bottom {
+      display: flex; justify-content: flex-end; padding-top: 20px;
+      border-top: 1px solid #f1f5f9;
+    }
+    .btn-back {
+      display: inline-block; padding: 12px 32px; background: var(--ubf-orange); color: #fff;
+      font-weight: 800; border-radius: 8px; text-transform: uppercase; font-size: 0.9rem;
+      letter-spacing: 0.5px; transition: 0.3s;
+    }
+    .btn-back:hover {
+      background: #d05a15; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(234, 104, 26, 0.2);
+    }
+
+    /* Fully responsive */
+    @media (max-width: 768px) {
+      .event-detail-card { padding: 30px 20px; border-radius: 0; border: none; }
+      .meta-grid { grid-template-columns: 1fr; }
+      .event-detail-card h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-spacer"></div>
+
+  <main class="event-detail-card">
+    
+    <h1>स्वतंत्रता दिवस</h1>
+
+    <!-- Key-Value Meta Layout -->
+    <div class="meta-grid">
+      <div><strong>Event ID:</strong> <span>33345</span></div>
+      <div><strong>Purpose:</strong> <span>तिरंगा रैली</span></div>
+      <div><strong>Date:</strong> <span>2025-08-15</span></div>
+      <div><strong>Location:</strong> <span>Bhopal</span></div>
+      <div><strong>Added By:</strong> <span>Admin</span></div>
+      <div><strong>Created By (ID):</strong> <span>67c25a079b49cce6cf4e08</span></div>
+      <div><strong>Created At:</strong> <span>15/8/2025, 11:23:44 am</span></div>
+      <div><strong>Updated At:</strong> <span>15/8/2025, 11:23:44 am</span></div>
+    </div>
+
+    <!-- Description -->
+    <h2 class="section-title">Description</h2>
+    <div class="description-text">
+      <p>स्वतंत्रता दिवस के पावन अवसर पर Ujjawal Bhoomi Foundation द्वारा एक भव्य तिरंगा रैली का आयोजन किया गया, जिसमें सेंट्रल लाइब्रेरी मौलाना आजाद के छात्र भी उत्साहपूर्वक शामिल हुए। रैली का उद्देश्य देशभक्ति की भावना को जागृत करना, राष्ट्र के प्रति एकजुटता दिखाना और युवाओं में स्वतंत्रता संग्राम के मूल्यों को संजोना था।</p>
+      
+      <p>कार्यक्रम की शुरुआत राष्ट्रगान के साथ हुई, जिसके बाद प्रतिभागियों ने हाथों में तिरंगा लेकर "वंदे मातरम", "भारत माता की जय" के नारे लगाए। इस मौके पर UBF के प्रतिनिधियों ने युवाओं को स्वतंत्रता सेनानियों के बलिदान और आजादी के महत्व के बारे में प्रेरक संदेश दिया।</p>
+      
+      <p>छात्रों और फाउंडेशन के सदस्यों ने मिलकर शहर की मुख्य सड़कों पर तिरंगा यात्रा निकाली, जिससे चारों ओर देशभक्ति का वातावरण बन गया। रैली के अंत में सभी ने एक साथ तिरंगे को सलामी दी और संकल्प लिया कि वे देश की प्रगति और पर्यावरण संरक्षण में अपना योगदान देंगे।</p>
+      
+      <div class="hashtags">
+        #SwatantrataDiwas #TirangaRally #UjjawalBhoomiFoundation #AzadiKaAmritMahotsav #VandeMataram #BharatMataKiJai #YouthForNation
+      </div>
+    </div>
+
+    <!-- Images Gallery -->
+    <h2 class="section-title">Images</h2>
+    <div class="images-grid">
+      <img src="https://images.unsplash.com/photo-1541872703814-a5e2f753e1a6?q=80&w=800&auto=format&fit=crop" alt="Event Image 1">
+      <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop" alt="Event Image 2">
+      <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=800&auto=format&fit=crop" alt="Event Image 3">
+      <img src="https://images.unsplash.com/photo-1593113580332-ce148dd41381?q=80&w=800&auto=format&fit=crop" alt="Event Image 4">
+      <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=800&auto=format&fit=crop" alt="Event Image 5">
+    </div>
+
+    <!-- Footer Action -->
+    <div class="action-bottom">
+      <a href="./events_listing_prototype.html" class="btn-back">Go Back</a>
+    </div>
+
+  </main>
+
+</body>
+</html>

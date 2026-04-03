@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate - UBF Prototype 1 (Standard)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #f8fafc; color: #1e293b; }
+
+    :root {
+      --ubf-blue: #113E7C; --ubf-orange: #EA681A; --ubf-green: #23974F;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(rgba(2, 6, 23, 0.8), rgba(17, 62, 124, 0.8)), 
+                  url('https://images.unsplash.com/photo-1593113580332-ce148dd41381?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover; background-position: center;
+      padding: 140px 20px 80px; text-align: center; color: #fff;
+    }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; margin-bottom: 16px; }
+    .hero p { font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.9); }
+
+    /* Form Container */
+    .form-container {
+      max-width: 800px; margin: -40px auto 100px; padding: 50px;
+      background: #fff; border-radius: 24px; box-shadow: 0 20px 40px rgba(17,62,124,0.08);
+      border: 1px solid #e2e8f0; position: relative; z-index: 10;
+    }
+    .form-title {
+      text-align: center; font-size: 2.2rem; font-weight: 900; color: var(--ubf-blue);
+      margin-bottom: 40px;
+    }
+
+    /* Grid Form */
+    .donate-form {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .full-width { grid-column: 1 / -1; }
+
+    .input-group { display: flex; flex-direction: column; gap: 8px; }
+    .input-group label {
+      font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .form-control {
+      padding: 16px; background: #f8fafc; border: 2px solid transparent;
+      border-radius: 12px; font-family: inherit; font-size: 1rem; color: #0f172a;
+      transition: all 0.3s;
+    }
+    .form-control:focus {
+      background: #fff; border-color: var(--ubf-orange); outline: none;
+      box-shadow: 0 0 0 4px rgba(234, 104, 26, 0.1);
+    }
+    .form-control::placeholder { color: #94a3b8; }
+    textarea.form-control { resize: vertical; min-height: 120px; }
+
+    /* Submit Button */
+    .submit-btn {
+      grid-column: 1 / -1; padding: 20px; background: var(--ubf-orange); color: #fff;
+      border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s;
+      margin-top: 10px;
+    }
+    .submit-btn:hover {
+      background: #d05a15; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(234, 104, 26, 0.25);
+    }
+
+    @media (max-width: 600px) {
+      .donate-form { grid-template-columns: 1fr; }
+      .form-container { padding: 30px 20px; margin-top: -20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <h1>Support Ujjawal Bhoomi</h1>
+    <p>Your generosity helps us uplift communities, create lasting change, and make a difference.</p>
+  </header>
+
+  <main class="form-container">
+    <h2 class="form-title">Make a Donation</h2>
+    
+    <form class="donate-form" onsubmit="event.preventDefault(); alert('Prototype Submitted!');">
+      
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" class="form-control" placeholder="John Doe" required>
+      </div>
+      
+      <div class="input-group">
+        <label>Email Address</label>
+        <input type="email" class="form-control" placeholder="john@example.com" required>
+      </div>
+      
+      <div class="input-group">
+        <label>Phone Number</label>
+        <input type="tel" class="form-control" placeholder="+91 98765 43210" required>
+      </div>
+      
+      <div class="input-group">
+        <label>Address</label>
+        <input type="text" class="form-control" placeholder="City, State" required>
+      </div>
+
+      <div class="input-group">
+        <label>Amount (in INR)</label>
+        <input type="number" class="form-control" placeholder="₹ 5000" required>
+      </div>
+
+      <div class="input-group">
+        <label>Toward (Purpose)</label>
+        <select class="form-control" required>
+          <option value="" disabled selected>Select Purpose</option>
+          <option value="education">Education Support</option>
+          <option value="health">Healthcare Initiatives</option>
+          <option value="environment">Environmental Drives</option>
+          <option value="general">General Donation</option>
+        </select>
+      </div>
+
+      <div class="input-group full-width">
+        <label>Aadhaar, PAN or Any ID Proof Number</label>
+        <input type="text" class="form-control" placeholder="Enter ID Number (Required for Tax Exemption)" required>
+      </div>
+
+      <div class="input-group full-width">
+        <label>Remark (Optional)</label>
+        <textarea class="form-control" placeholder="Leave a message for our team..."></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Donate Now</button>
+
+    </form>
+  </main>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-import React from 'react'
+import { Link } from 'react-router-dom';
 
 const PartnersScroll = () => {
 
@@ -39,7 +39,7 @@ const PartnersScroll = () => {
             <div className="relative z-10">
                 <div className="text-center mb-10 sm:mb-16 px-4 sm:px-6">
                     <div className="inline-block mb-4">
-                        <span className="px-3 sm:px-4 py-2 bg-blue-900/10 border border-blue-900/30 rounded-full text-blue-900 text-xs sm:text-sm font-semibold tracking-wider uppercase">
+                        <span className="px-3 sm:px-4 py-2 bg-blue-900/10 border border-blue-900/30 rounded-full text-blue-100 text-xs sm:text-sm font-semibold tracking-wider uppercase">
                             Trusted Collaborations
                         </span>
                     </div>
@@ -96,9 +96,9 @@ const PartnersScroll = () => {
                         </svg>
                         <span className="text-white font-medium text-sm sm:text-base text-left">
                             Wish to become a partner?{' '}
-                            <a href="#contact" className="underline text-orange-400 hover:text-orange-500 transition-colors duration-300 whitespace-nowrap">
+                            <Link to="/get-involved#partner" className="underline text-orange-400 hover:text-orange-500 transition-colors duration-300 whitespace-nowrap">
                                 Join our Partner Program!
-                            </a>
+                            </Link>
                         </span>
                     </div>
                 </div>

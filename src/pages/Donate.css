@@ -1,0 +1,122 @@
+/* ============================================
+   UBF — Donate Page Styling
+   ============================================ */
+
+.don-wrapper {
+  background: #f8fafc; color: #1e293b;
+  min-height: 100vh; overflow-x: hidden; position: relative;
+}
+
+/* --- Hero Section (Unified Glowing Theme) --- */
+.don-hero {
+  position: relative; padding: 180px 24px 120px; text-align: center;
+  background: #020617; color: #fff; overflow: hidden;
+}
+
+.don-hero-glow {
+  position: absolute; border-radius: 50%; opacity: 0; filter: blur(80px);
+  animation: float-glow 8s ease-in-out infinite alternate, fade-in 2s forwards;
+}
+.don-glow-1 { width: 400px; height: 400px; background: #EA681A; top: -10%; left: -10%; }
+.don-glow-2 { width: 500px; height: 500px; background: #113E7C; bottom: -20%; right: -10%; animation-delay: 2s; }
+
+.don-hero-label {
+  display: inline-block; padding: 8px 24px; background: rgba(255, 255, 255, 0.1); 
+  border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50px; font-size: 0.85rem; 
+  font-weight: 800; color: #cbd5e1; letter-spacing: 0.2em; text-transform: uppercase; 
+  margin-bottom: 24px; position: relative; z-index: 10; backdrop-filter: blur(4px);
+}
+
+.don-hero h1 {
+  font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 24px;
+  position: relative; z-index: 10; letter-spacing: -1px;
+}
+.don-hero h1 span {
+  background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative;
+}
+.don-hero h1 .accent {
+  background: linear-gradient(135deg, #EA681A, #feb47b);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.don-hero p {
+  font-size: 1.25rem; color: #94a3b8; max-width: 650px; margin: 0 auto; line-height: 1.8;
+  position: relative; z-index: 10; font-weight: 500;
+}
+
+.don-curve {
+  position: absolute; bottom: -1px; left: 0; width: 100%; height: 50px; z-index: 10;
+}
+@media (min-width: 768px) {
+  .don-curve { height: 80px; }
+}
+
+/* --- Container & Form Structure --- */
+.don-container {
+  max-width: 900px; margin: 0 auto; padding: 0 24px 100px; position: relative; z-index: 20;
+}
+
+.don-card {
+  background: #ffffff; border-radius: 30px;
+  box-shadow: 0 25px 60px -15px rgba(17,62,124,0.1), 0 0 0 1px rgba(17,62,124,0.05);
+  padding: 50px 40px; text-align: left; transform: translateY(-30px);
+}
+
+.don-title {
+  text-align: center; font-size: 2.2rem; font-weight: 900; color: #113E7C; margin-bottom: 40px;
+}
+
+.don-form {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.don-full { grid-column: 1 / -1; }
+
+.don-input-group { margin-bottom: 8px; }
+.don-input-group label {
+  display: block; font-size: 0.8rem; font-weight: 800; color: #64748b; 
+  margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.don-input-group label span { color: #f43f5e; }
+
+.don-input {
+  width: 100%; padding: 16px 20px; background: #f8fafc; 
+  border: 2px solid transparent; border-radius: 12px;
+  font-family: inherit; font-size: 1.05rem; color: #1e293b; font-weight: 600;
+  transition: all 0.3s;
+}
+.don-input::placeholder { color: #94a3b8; font-weight: 500; }
+.don-input:focus {
+  background: #ffffff; border-color: #EA681A; outline: none;
+  box-shadow: 0 8px 25px rgba(17,62,124,0.08); transform: translateY(-2px);
+}
+textarea.don-input { min-height: 120px; resize: vertical; }
+select.don-input { cursor: pointer; }
+
+/* Secure Badge Section */
+.don-secure {
+  grid-column: 1 / -1; text-align: center; font-size: 0.85rem; font-weight: 700;
+  color: #23974F; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 16px 0 8px;
+}
+
+/* Submit Button */
+.don-submit-btn {
+  grid-column: 1 / -1; padding: 20px; color: #fff; border: none; border-radius: 12px;
+  font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: all 0.3s;
+  text-transform: uppercase; letter-spacing: 1.5px; margin-top: 10px;
+  background: #EA681A; box-shadow: 0 8px 15px rgba(234, 104, 26, 0.2);
+}
+.don-submit-btn:hover {
+  background: #d05a15; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(234, 104, 26, 0.3);
+}
+
+@media (max-width: 600px) {
+  .don-form { grid-template-columns: 1fr; }
+  .don-card { padding: 40px 24px; border-radius: 20px; transform: translateY(-20px); }
+  .don-title { font-size: 1.8rem; }
+}
+
+/* --- Reveal Utility --- */
+.don-reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.don-reveal.visible { opacity: 1; transform: translateY(0); }

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate - UBF Prototype 2 (Premium Split)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #020617; color: #f8fafc; min-height: 100vh; overflow-x: hidden; }
+
+    :root {
+      --ubf-blue: #113E7C; --ubf-orange: #EA681A; --ubf-green: #23974F;
+    }
+
+    /* Premium Glow Background */
+    .bg-glow {
+      position: fixed; border-radius: 50%; filter: blur(120px); z-index: 1; opacity: 0.5;
+      animation: shift 10s infinite alternate ease-in-out;
+    }
+    .glow-1 { width: 600px; height: 600px; background: var(--ubf-blue); top: -10%; left: -10%; }
+    .glow-2 { width: 500px; height: 500px; background: var(--ubf-orange); bottom: -10%; right: -5%; }
+    
+    @keyframes shift {
+      0% { transform: scale(1) translate(0px, 0px); }
+      100% { transform: scale(1.1) translate(50px, -50px); }
+    }
+
+    /* Split Container */
+    .split-container {
+      position: relative; z-index: 10; max-width: 1300px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; padding: 80px 24px;
+      align-items: center; min-height: 100vh;
+    }
+
+    /* Left Content Side */
+    .content-side h1 {
+      font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    .content-side h1 span { color: var(--ubf-orange); }
+    .content-side p {
+      font-size: 1.15rem; color: #94a3b8; line-height: 1.8; margin-bottom: 40px; max-width: 90%;
+    }
+    .impact-stats {
+      display: flex; gap: 30px; margin-top: 40px;
+    }
+    .stat { display: flex; flex-direction: column; gap: 4px; border-left: 3px solid var(--ubf-orange); padding-left: 16px;}
+    .stat strong { font-size: 2rem; color: #fff; font-weight: 900; line-height: 1; }
+    .stat span { font-size: 0.85rem; color: #64748b; text-transform: uppercase; font-weight: 700; }
+
+    /* Right Form Side */
+    .form-side {
+      background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px;
+      padding: 50px 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    }
+    
+    .form-side h2 { font-size: 2rem; margin-bottom: 30px; font-weight: 800; color: #fff;}
+
+    .donate-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .full-width { grid-column: 1 / -1; }
+
+    .input-group label {
+      display: block; font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 8px;
+    }
+    
+    .form-control {
+      width: 100%; padding: 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; font-family: inherit; font-size: 1rem; color: #fff; transition: all 0.3s;
+    }
+    .form-control:focus {
+      background: rgba(15, 23, 42, 0.9); border-color: var(--ubf-orange); outline: none;
+      box-shadow: 0 0 0 4px rgba(234, 104, 26, 0.2);
+    }
+    .form-control::placeholder { color: #475569; }
+    
+    /* Native select styling fix for dark mode */
+    select.form-control option { background: #0f172a; color: #fff; }
+
+    .submit-btn {
+      grid-column: 1 / -1; padding: 20px; background: linear-gradient(135deg, var(--ubf-orange), #ff8842); color: #fff;
+      border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; margin-top: 10px;
+    }
+    .submit-btn:hover {
+      transform: translateY(-3px); box-shadow: 0 15px 30px rgba(234, 104, 26, 0.4);
+    }
+
+    @media (max-width: 900px) {
+      .split-container { grid-template-columns: 1fr; gap: 40px; padding: 40px 20px; }
+      .content-side { text-align: center; }
+      .content-side p { margin: 0 auto 40px; }
+      .impact-stats { justify-content: center; }
+      .form-side { padding: 30px 20px; }
+      .donate-form { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Abstract Glows -->
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <main class="split-container">
+    
+    <div class="content-side">
+      <h1>Make An <br><span>Impact</span></h1>
+      <p>Your contribution directly supports marginalized communities. Every single donation goes towards education, healthcare, and building a sustainable environment for those who need it most.</p>
+      
+      <div class="impact-stats">
+        <div class="stat">
+          <strong>100%</strong>
+          <span>Transparency</span>
+        </div>
+        <div class="stat">
+          <strong>80G</strong>
+          <span>Tax Exempt</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-side">
+      <h2>Donation Details</h2>
+      <form class="donate-form" onsubmit="event.preventDefault(); alert('Premium Prototype Submitted!');">
+        
+        <div class="input-group">
+          <label>Full Name</label>
+          <input type="text" class="form-control" placeholder="John Doe" required>
+        </div>
+        
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" class="form-control" placeholder="john@example.com" required>
+        </div>
+        
+        <div class="input-group">
+          <label>Phone</label>
+          <input type="tel" class="form-control" placeholder="+91 98765 43210" required>
+        </div>
+        
+        <div class="input-group">
+          <label>Address</label>
+          <input type="text" class="form-control" placeholder="City, State" required>
+        </div>
+  
+        <div class="input-group">
+          <label>Amount (INR)</label>
+          <input type="number" class="form-control" placeholder="₹ 5000" required>
+        </div>
+  
+        <div class="input-group">
+          <label>Toward (Purpose)</label>
+          <select class="form-control" required>
+            <option value="" disabled selected>Select Purpose</option>
+            <option value="education">Education</option>
+            <option value="health">Healthcare</option>
+            <option value="environment">Environment</option>
+            <option value="general">General</option>
+          </select>
+        </div>
+  
+        <div class="input-group full-width">
+          <label>Aadhaar / PAN / ID Number</label>
+          <input type="text" class="form-control" placeholder="Required for Tax Exemption" required>
+        </div>
+  
+        <div class="input-group full-width">
+          <label>Remark (Optional)</label>
+          <textarea class="form-control" placeholder="Leave a message..." rows="3"></textarea>
+        </div>
+  
+        <button type="submit" class="submit-btn">Donate Securely</button>
+  
+      </form>
+    </div>
+
+  </main>
+
+</body>
+</html>

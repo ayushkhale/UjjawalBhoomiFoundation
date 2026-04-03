@@ -1,0 +1,147 @@
+.success-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(12px);
+  animation: modalFadeIn 0.4s ease-out forwards;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.success-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: white;
+  border-radius: 2.5rem;
+  padding: 3rem 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  text-align: center;
+  overflow: hidden;
+  animation: cardSlideScale 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cardSlideScale {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.success-modal-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  filter: blur(80px);
+  opacity: 0.15;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.don-glow-1 { top: -100px; left: -100px; background: #EA681A; }
+.don-glow-2 { bottom: -100px; right: -100px; background: #113E7C; }
+
+.success-modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 99px;
+}
+
+.success-modal-close:hover {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.success-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-modal-icon-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.success-modal-icon-bg {
+  position: absolute;
+  inset: 0;
+  background: #fff7ed;
+  border-radius: 2.5rem;
+  transform: rotate(-10deg);
+  animation: iconBgFloating 6s infinite ease-in-out;
+}
+
+@keyframes iconBgFloating {
+  0%, 100% { transform: rotate(-10deg) scale(1); }
+  50% { transform: rotate(10deg) scale(1.1); }
+}
+
+.success-modal-icon {
+  position: relative;
+  color: #EA681A;
+  animation: checkmarkPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
+}
+
+@keyframes checkmarkPop {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.success-modal-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #113E7C;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.success-modal-text {
+  color: #64748b;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  width: 90%;
+}
+
+.success-modal-btn {
+  background: linear-gradient(135deg, #EA681A, #c25212);
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 1.25rem;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 10px 20px -10px rgba(234, 104, 26, 0.5);
+  transition: all 0.3s;
+}
+
+.success-modal-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px -10px rgba(234, 104, 26, 0.6);
+  filter: brightness(1.1);
+}
+
+.success-modal-btn:active {
+  transform: translateY(0);
+}

@@ -1,4 +1,4 @@
-name: Deploy to AWS
+name: 🚀 Deploy HRVista Website
 
 on:
   push:
@@ -6,22 +6,64 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
+    name: Build & Deploy to Production
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # 1. Checkout the repository
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm install
+      # 2. Setup Node.js
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-      - name: Build project
+      # 3. Install dependencies
+      - name: 📦 Install Dependencies
+        run: npm ci
+
+      # 4. Build the production bundle
+      - name: 🔨 Build Production Bundle
         run: npm run build
 
-      - name: Deploy to AWS
-        run: |
-          aws s3 sync build/ s3://your-bucket-name
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # 5. Prepare server directory (fix permissions)
+      - name: 🔧 Prepare Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            sudo mkdir -p /var/www/ubf
+            sudo chown -R $USER:$USER /var/www/ubf
+            sudo chmod -R 755 /var/www/ubf
+            rm -rf /var/www/ubf/*
+
+      # 6. Deploy to server via SSH
+      - name: 🚀 Deploy to Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          source: "dist/*"
+          target: "/var/www/ubf"
+          strip_components: 1
+          overwrite: true
+
+      # 7. Reload Nginx on the server
+      - name: 🔄 Reload Nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            sudo systemctl reload nginx
+            echo "✅ Deployment complete - site is live!"

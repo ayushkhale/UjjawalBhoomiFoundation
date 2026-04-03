@@ -1,20 +1,37 @@
 import { useEffect, useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
+import { Menu, X, ChevronDown } from 'lucide-react'
 import namelogo from '../assets/namelogo.png'
 import namelogo2 from '../assets/namelogo2.png'
+import ubfLogo from '../assets/ubf-logo-Photoroom.png'
 
 const navLinks = [
-  { label: 'Home', href: '#', side: 'left' },
-  { label: 'About', href: '#', side: 'left' },
-  { label: 'Events', href: '#', side: 'left' },
+  { label: 'Home', href: '/', side: 'left' },
+  { label: 'About', href: '/about', side: 'left' },
+  { label: 'Events', href: '/events', side: 'left' },
   { label: 'Programs', href: '#', side: 'right' },
-  { label: 'Get Involved', href: '#', side: 'right' },
+  { 
+    label: 'Get Involved', 
+    href: '/get-involved', 
+    side: 'right',
+    dropdown: [
+      { label: 'Volunteer', href: '/get-involved#volunteer' },
+      { label: 'Partner', href: '/get-involved#partner' },
+      { label: 'Donate', href: '/get-involved#donate' },
+      { label: 'Internship', href: '/get-involved#internship' },
+    ]
+  },
 ]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [active, setActive] = useState('Home')
+  const location = useLocation()
+  
+  // Set active based on current path
+  const active = location.pathname.startsWith('/events') ? 'Events' :
+                 location.pathname === '/about' ? 'About' : 
+                 location.pathname === '/get-involved' ? 'Get Involved' : 'Home'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -53,51 +70,86 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-6 flex-1">
             <nav className="flex items-center gap-6 font-medium">
               {navLinks.filter(l => l.side === 'left').map(({ label, href }) => (
-                <a
+                <Link
                   key={label}
-                  href={href}
-                  onClick={() => setActive(label)}
+                  to={href}
                   className={getLinkClass(label)}
                 >
                   {label}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
 
           {/* CENTER — logo (always visible) */}
           <div className="flex justify-center flex-1 md:flex-1">
-            <img
-              src={scrolled ? namelogo2 : namelogo}
-              alt="logo"
-              className="h-10 sm:h-12 object-contain"
-            />
+            <Link to="/" className="flex items-center gap-0 sm:gap-0.5 transition-transform hover:scale-105">
+              <img
+                src={ubfLogo}
+                alt="UBF Icon"
+                className="h-12 sm:h-14 object-contain"
+              />
+              <img
+                src={scrolled ? namelogo2 : namelogo}
+                alt="logo text"
+                className="h-7 sm:h-14 object-contain"
+              />
+            </Link>
           </div>
 
           {/* RIGHT — desktop nav + CTA */}
           <div className="hidden md:flex items-center justify-end gap-6 flex-1">
             <nav className="flex items-center gap-6 font-medium">
-              {navLinks.filter(l => l.side === 'right').map(({ label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  onClick={() => setActive(label)}
-                  className={getLinkClass(label)}
-                >
-                  {label}
-                </a>
-              ))}
+              {navLinks.filter(l => l.side === 'right').map((link) => {
+                if (link.dropdown) {
+                  return (
+                    <div key={link.label} className="relative group p-2 -m-2">
+                      <Link
+                        to={link.href}
+                        className={`${getLinkClass(link.label)} flex items-center gap-1`}
+                      >
+                        {link.label} <ChevronDown size={16} />
+                      </Link>
+                      {/* Dropdown Menu */}
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                        <div className="bg-white rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-2 overflow-hidden">
+                          {link.dropdown.map((item) => (
+                            <Link
+                              key={item.label}
+                              to={item.href}
+                              className="block px-5 py-3 text-sm font-bold text-gray-700 hover:bg-[#ffedd5] hover:text-[#EA681A] transition-colors"
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+
+                return (
+                  <Link
+                    key={link.label}
+                    to={link.href}
+                    className={getLinkClass(link.label)}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              })}
             </nav>
 
-            <button
+            <Link
+              to="/donate"
               className={`px-5 py-2 rounded-full font-semibold transition-all duration-200 ${
                 scrolled
-                  ? 'bg-secondary text-white hover:scale-105'
-                  : 'bg-white/20 text-white border border-white/40 hover:bg-white hover:text-secondary'
+                  ? 'bg-blue-900 text-white hover:bg-blue-800 hover:scale-105 shadow-md'
+                  : 'bg-white/20 text-white border border-white/40 hover:bg-white hover:text-blue-900 backdrop-blur-sm'
               }`}
             >
               Donate
-            </button>
+            </Link>
           </div>
 
           {/* MOBILE — hamburger button */}
@@ -146,10 +198,10 @@ export default function Navbar() {
           {/* Nav links */}
           <nav className="px-6 py-4 space-y-1">
             {navLinks.map(({ label, href }) => (
-              <a
+              <Link
                 key={label}
-                href={href}
-                onClick={() => { setActive(label); setOpen(false) }}
+                to={href}
+                onClick={() => setOpen(false)}
                 className={`flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
                   active === label
                     ? 'bg-orange-50 text-orange-500 font-bold'
@@ -160,7 +212,7 @@ export default function Navbar() {
                   <span className="w-1.5 h-1.5 rounded-full bg-orange-500 flex-shrink-0" />
                 )}
                 {label}
-              </a>
+              </Link>
             ))}
           </nav>
 
