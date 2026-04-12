@@ -26,7 +26,6 @@ const Home = () => {
 
   return (
     <div className="relative w-full">
-
       {/* ── Hero section with background slideshow ── */}
       <div className="relative min-h-screen w-full overflow-hidden">
         {/* Background images */}
@@ -56,8 +55,6 @@ const Home = () => {
       <PartnerScroll />
       <GalleryScroll />
       <GovtImages />
-      <Footer />
-
     </div>
   )
 }

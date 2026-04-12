@@ -14,11 +14,8 @@ const Footer = () => {
             <img
               src={logowide}
               alt="Ujjawal Bhoomi Foundation"
-              className="w-36 sm:w-44 mb-4 rounded-2xl"
+              className="w-36 sm:w-44 rounded-2xl"
             />
-            <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
-              Working towards a better tomorrow through community-driven programs and sustainable impact.
-            </p>
           </div>
 
           {/* Quick Links */}

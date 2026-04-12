@@ -4,8 +4,8 @@ import namelogo from '../assets/namelogo.png'
 import namelogo2 from '../assets/namelogo2.png'
 
 const navLinks = [
-  { label: 'Home', href: '#', side: 'left' },
-  { label: 'About', href: '#', side: 'left' },
+  { label: 'Home', href: '/', side: 'left' },
+  { label: 'About', href: '/about', side: 'left' },
   { label: 'Events', href: '#', side: 'left' },
   { label: 'Programs', href: '#', side: 'right' },
   { label: 'Get Involved', href: '#', side: 'right' },
